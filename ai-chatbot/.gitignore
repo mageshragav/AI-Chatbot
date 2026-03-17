@@ -1,0 +1,85 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+.venv*/
+# === UV Specific ===
+# UV creates the virtual environment in a specific folder or by default
+.uv/
+# uv.lock
+
+# === Python & Bytecode ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# === Virtual Environments ===
+# Standard venv names (uv typically uses .venv)
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+client_secret.json
+# === Django Specific ===
+# Static files (collected via collectstatic)
+staticfiles/
+static_root/
+
+# Media files (User uploaded content)
+media/
+
+# Security: NEVER commit the secret key or production settings
+# assuming you use a separate settings file for production
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# === IDE & Editor Files ===
+# VS Code
+.vscode/
+# PyCharm
+.idea/
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+# Vim
+*.swp
+*.swo
+*~
+
+# === OS Generated Files ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === Testing & Coverage ===
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# === Misc ===
+# Backup files
+*.bak
+# Log files
+*.logclient_secret.json
+node_modules/
+

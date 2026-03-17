@@ -1,0 +1,1117 @@
+---
+
+# **Model: MetalType**
+
+## **Model Definition**
+
+A small reference table representing predefined metal categories used throughout the system.
+It stores one of three fixed metal types (**Gold**, **Silver**, **Platinum**) and is primarily used as a lookup table for manufacturing, product configuration, and inventory workflows.
+
+---
+
+## **Fields**
+
+| Field Name   | Type          | Description                                                      |
+| ------------ | ------------- | ---------------------------------------------------------------- |
+| `id`         | AutoField     | Primary key                                                      |
+| `metal_name` | CharField     | Stores the metal type value (1 = Gold, 2 = Silver, 3 = Platinum) |
+| `is_active`  | BooleanField  | Indicates whether this metal type is enabled for use             |
+
+---
+
+## **Relations**
+
+* No foreign keys inside this model.
+* Used as a **foreign key target** by manufacturing, product, and inventory tables.
+* Join paths typically originate from other models pointing to `MetalType` for classification.
+
+---
+
+## **Common Business Use Cases**
+
+* Provide selectable metal types in product/manufacturing forms
+* Validate metal type selection in workflows
+* Categorize items, batches, or products based on metal
+* Enable/disable metal categories without altering schema
+
+---
+
+## **Notes**
+
+* Acts as a static lookup table with three predefined values
+* Indexed on `metal_name` and `(is_active, metal_name)` for fast filtering
+* Common join target when enriching product or manufacturing records
+
+---
+
+======================================================================
+
+# **Model: Project**
+
+## **Model Definition**
+
+Represents a configurable project entity used across the system for organizing designs, layouts, and associated metal categories.
+Supports activation control through `StatusMixin` and automatic timestamp tracking through `TimestampMixin`.
+
+---
+
+## **Fields**
+
+| Field Name     | Type         | Description                                            |
+| -------------- | ------------ | ------------------------------------------------------ |
+| `id`           | AutoField    | Primary key                                            |
+| `project_name` | CharField    | Unique name used to identify the project               |
+| `description`  | TextField    | Optional descriptive text describing the project       |
+| `metal_type`   | ManyToMany   | Associates the project with multiple metal types       |
+| `layout`       | BooleanField | Indicates whether the project has an associated layout |
+| `is_active`    | BooleanField | Indicates whether the project is enabled for use       |
+
+---
+
+## **Relations**
+
+* **Many-to-Many with `MetalType`** stored in the join table:
+  **`projects_project_metal_type`**
+
+  | Column Name    | Description                       |
+  | -------------- | --------------------------------- |
+  | `project_id`   | FK → `projects_project.id`        |
+  | `metaltype_id` | FK → `manufacturing_metaltype.id` |
+
+* Inherits additional fields from mixins:
+
+  * `created_at`, `updated_at` (from `TimestampMixin`)
+  * `is_active` (from `StatusMixin`)
+
+---
+
+## **Common Business Use Cases**
+
+* Grouping product designs or manufacturing configurations
+* Associating a project with one or more metal categories
+* Filtering active or inactive project definitions
+* Retrieving projects based on metal type criteria
+* Managing layout-specific project workflows
+
+---
+
+## **Notes**
+
+* Many-to-many assignments are stored in `projects_project_metal_type`
+* `project_name` is unique and indexed for fast lookups
+* Prefetching (`prefetch_related`) recommended when loading metal types
+* Frequently used in design, workflow, and configuration modules
+
+---
+
+==========================================================================
+
+---
+
+# **Model: Category**
+
+## **Model Definition**
+
+Represents a product or design category used for organizing projects within the system.
+Inherits `TimestampMixin` for automatic time tracking and `StatusMixin` for activation control.
+Supports mapping to multiple projects through a many-to-many relationship.
+
+---
+
+## **Fields**
+
+| Field Name      | Type         | Description                                             |
+| --------------- | ------------ | ------------------------------------------------------- |
+| `id`            | AutoField    | Primary key                                             |
+| `category_name` | CharField    | Unique name representing the category                   |
+| `description`   | TextField    | Optional descriptive text for the category              |
+| `project`       | ManyToMany   | Links the category with one or more projects            |
+| `layout`        | BooleanField | Indicates whether the category has an associated layout |
+| `is_active`     | BooleanField | Indicates whether this category is enabled for use      |
+
+---
+
+## **Relations**
+
+* **Many-to-Many with `Project`** stored in the join table:
+  **`catalog_category_project`**
+
+  | Column Name   | Description                |
+  | ------------- | -------------------------- |
+  | `category_id` | FK → `catalog_category.id` |
+  | `project_id`  | FK → `projects_project.id` |
+
+* Inherits additional fields from mixins:
+
+  * `created_at`, `updated_at` (from `TimestampMixin`)
+  * `is_active` (from `StatusMixin`)
+
+---
+
+## **Common Business Use Cases**
+
+* Organizing projects into logical product or workflow categories
+* Filtering categories for active/inactive status
+* Linking categories with multiple projects for grouping or reporting
+* Retrieving categories used in specific layouts
+* Accelerating lookups using indexed `category_name`
+
+---
+
+## **Notes**
+
+* Many-to-many mappings are stored in `catalog_category_project`
+* Indexed on `category_name` and `(category_name, id)` for fast joins
+* `category_name` is unique and optimized for search
+* Useful for grouping, filtering, and categorizing project structures
+
+---
+
+=========================================================================
+
+---
+
+# **Model: SubCategory**
+
+## **Model Definition**
+
+Represents a sub-level grouping under a category, used to further classify catalog items or projects.
+Inherits `TimestampMixin` for automatic timestamp fields and `StatusMixin` for activation control.
+Supports linking to multiple categories through a many-to-many relationship.
+
+---
+
+## **Fields**
+
+| Field Name          | Type         | Description                                   |
+| ------------------- | ------------ | --------------------------------------------- |
+| `id`                | AutoField    | Primary key                                   |
+| `sub_category_name` | CharField    | Name representing the sub-category            |
+| `category`          | ManyToMany   | Associates the sub-category with categories   |
+| `is_active`         | BooleanField | Indicates whether this sub-category is active |
+
+---
+
+## **Relations**
+
+* **Many-to-Many with `Category`** stored in the join table:
+  **`catalog_subcategory_category`**
+
+  | Column Name      | Description                   |
+  | ---------------- | ----------------------------- |
+  | `subcategory_id` | FK → `catalog_subcategory.id` |
+  | `category_id`    | FK → `catalog_category.id`    |
+
+* Additional inherited fields:
+
+  * `created_at`, `updated_at` (TimestampMixin)
+  * `is_active` (StatusMixin)
+
+---
+
+## **Common Business Use Cases**
+
+* Creating hierarchical grouping under categories
+* Filtering sub-categories by assigned categories
+* Organizing catalog items or project structures in multiple levels
+* Searching sub-categories using indexed name fields
+
+---
+
+## **Notes**
+
+* Many-to-many mappings stored in `catalog_subcategory_category`
+* Indexed on `sub_category_name` for fast lookup
+* Suitable for multilevel catalog or project classification structures
+
+---
+
+=============================================================================
+
+---
+
+# **Model: Collection**
+
+## **Model Definition**
+
+Represents a curated grouping that ties together metal types, projects, categories, and sub-categories.
+Inherits `TimestampMixin` for automatic time tracking and `StatusMixin` for activation control.
+Used as a top-level entity for organizing catalog structures.
+
+---
+
+## **Fields**
+
+| Field Name        | Type         | Description                                            |
+| ----------------- | ------------ | ------------------------------------------------------ |
+| `id`              | AutoField    | Primary key                                            |
+| `collection_name` | CharField    | Unique name representing the collection                |
+| `metal_type`      | ManyToMany   | Associates the collection with one or more metal types |
+| `project`         | ManyToMany   | Links the collection to related projects               |
+| `category`        | ManyToMany   | Links the collection to categories                     |
+| `sub_category`    | ManyToMany   | Associates the collection with sub-categories          |
+| `is_active`       | BooleanField | Indicates whether the collection is enabled for use    |
+
+---
+
+## **Relations**
+
+* **Many-to-Many with `MetalType`**
+  Join table: **`catalog_collection_metal_type`**
+
+  | Column Name     | Description                       |
+  | --------------- | --------------------------------- |
+  | `collection_id` | FK → `catalog_collection.id`      |
+  | `metaltype_id`  | FK → `manufacturing_metaltype.id` |
+
+* **Many-to-Many with `Project`**
+  Join table: **`catalog_collection_project`**
+
+  | Column Name     | Description                  |
+  | --------------- | ---------------------------- |
+  | `collection_id` | FK → `catalog_collection.id` |
+  | `project_id`    | FK → `projects_project.id`   |
+
+* **Many-to-Many with `Category`**
+  Join table: **`catalog_collection_category`**
+
+  | Column Name     | Description                  |
+  | --------------- | ---------------------------- |
+  | `collection_id` | FK → `catalog_collection.id` |
+  | `category_id`   | FK → `catalog_category.id`   |
+
+* **Many-to-Many with `SubCategory`**
+  Join table: **`catalog_collection_sub_category`**
+
+  | Column Name      | Description                   |
+  | ---------------- | ----------------------------- |
+  | `collection_id`  | FK → `catalog_collection.id`  |
+  | `subcategory_id` | FK → `catalog_subcategory.id` |
+
+* Inherited fields from mixins:
+
+  * `created_at`, `updated_at`
+  * `is_active`
+
+---
+
+## **Common Business Use Cases**
+
+* Creating curated catalog collections for product grouping
+* Filtering collections by metal type, project, category, or sub-category
+* Organizing catalog structures for UI filters and browsing
+* Activating/deactivating collections without deleting them
+* Multi-level catalog segmentation for reporting or navigation
+
+---
+
+## **Notes**
+
+* Multiple many-to-many mappings stored across four join tables
+* `collection_name` is unique and suitable for lookup queries
+* Prefetching recommended for loading related entities efficiently
+* Suitable for multi-dimensional catalog grouping and filtering
+
+---
+
+=======================================================================
+
+---
+
+# **Model: SubCollection**
+
+## **Model Definition**
+
+Represents a lower-level grouping within a collection, used to further segment catalog structures.
+Inherits `TimestampMixin` for automatic timestamp fields and `StatusMixin` for activation control.
+Supports association with multiple collections through a many-to-many relationship.
+
+---
+
+## **Fields**
+
+| Field Name            | Type         | Description                                         |
+| --------------------- | ------------ | --------------------------------------------------- |
+| `id`                  | AutoField    | Primary key                                         |
+| `sub_collection_name` | CharField    | Name representing the sub-collection                |
+| `collection`          | ManyToMany   | Links the sub-collection to one or more collections |
+| `is_active`           | BooleanField | Indicates whether this sub-collection is active     |
+
+---
+
+## **Relations**
+
+* **Many-to-Many with `Collection`**
+  Join table: **`catalog_subcollection_collection`**
+
+  | Column Name        | Description                     |
+  | ------------------ | ------------------------------- |
+  | `subcollection_id` | FK → `catalog_subcollection.id` |
+  | `collection_id`    | FK → `catalog_collection.id`    |
+
+* Inherited fields from mixins:
+
+  * `created_at`, `updated_at`
+  * `is_active`
+
+---
+
+## **Common Business Use Cases**
+
+* Further segmentation of collections for catalog structuring
+* Organizing items into nested collection hierarchies
+* Filtering sub-collections under specific collections
+* Managing active/inactive sub-collection states
+* Supporting multi-level navigation in catalog UI
+
+---
+
+## **Notes**
+
+* Many-to-many mappings stored in `catalog_subcollection_collection`
+* `sub_collection_name` is not unique—use additional filters when querying
+* Ideal for nested catalog segmentation and hierarchical grouping
+
+---
+
+==========================================================================
+
+---
+
+# **Model: Gender**
+
+## **Model Definition**
+
+Represents a gender classification used for categorizing catalog items or customer preferences.
+Inherits `TimestampMixin` for automatic timestamps and `StatusMixin` for activation control.
+Serves as a simple lookup entity.
+
+---
+
+## **Fields**
+
+| Field Name    | Type         | Description                             |
+| ------------- | ------------ | --------------------------------------- |
+| `id`          | AutoField    | Primary key                             |
+| `gender_name` | CharField    | Unique name representing the gender     |
+| `is_active`   | BooleanField | Indicates whether this gender is active |
+
+---
+
+## **Relations**
+
+* No internal foreign keys.
+* Acts as a lookup table referenced by other catalog or customer models where gender classification is required.
+
+---
+
+## **Common Business Use Cases**
+
+* Categorizing catalog items based on target gender
+* Filtering products or preferences by gender
+* Managing active/inactive gender classifications
+* Providing gender options in UI forms and filters
+
+---
+
+## **Notes**
+
+* Simple lookup model with unique `gender_name`
+* Often used for filtering product listings or customer preferences
+* Inherits status and timestamp fields for lifecycle management
+
+---
+
+========================================================================
+
+---
+
+# **Model: Manufacturing**
+
+## **Model Definition**
+
+Represents a manufacturing entity identified by a unique code, used throughout the system for production workflows.
+Inherits `TimestampMixin` for automatic timestamp tracking and `StatusMixin` for activation control.
+Primarily used as a reference model for manufacturing-related classifications.
+
+---
+
+## **Fields**
+
+| Field Name    | Type         | Description                                           |
+| ------------- | ------------ | ----------------------------------------------------- |
+| `id`          | AutoField    | Primary key                                           |
+| `code`        | CharField    | Unique manufacturing code with database index         |
+| `description` | TextField    | Optional descriptive text                             |
+| `is_active`   | BooleanField | Indicates whether this manufacturing record is active |
+
+---
+
+## **Relations**
+
+* No internal foreign keys.
+* Functions as a reference model for other manufacturing or catalog entities to associate production codes.
+
+---
+
+## **Common Business Use Cases**
+
+* Identifying manufacturing processes or codes
+* Mapping catalog or product items to manufacturing standards
+* Filtering manufacturing entries based on activation status
+* Using indexed `code` for fast lookups in workflows
+
+---
+
+## **Notes**
+
+* Indexed on `code` for optimized querying
+* Used widely in production workflows and catalog mappings
+* Simple lookup model with descriptive support
+
+---
+
+===============================================================
+
+---
+
+# **Model: Hallmark**
+
+## **Model Definition**
+
+Represents a hallmark standard used in manufacturing or quality validation processes.
+Inherits `TimestampMixin` for timestamp tracking and `StatusMixin` for activation control.
+A simple lookup model used to store unique hallmark names.
+
+---
+
+## **Fields**
+
+| Field Name      | Type         | Description                                 |
+| --------------- | ------------ | ------------------------------------------- |
+| `id`            | AutoField    | Primary key                                 |
+| `hallmark_name` | CharField    | Unique hallmark name with database indexing |
+| `is_active`     | BooleanField | Indicates whether the hallmark is active    |
+
+---
+
+## **Relations**
+
+* No internal foreign keys.
+* Referenced by manufacturing or certification-related models where hallmark validation is required.
+
+---
+
+## **Common Business Use Cases**
+
+* Storing hallmark standards for manufacturing workflows
+* Associating products or batches with specific hallmark values
+* Filtering based on active hallmark standards
+* Providing hallmark options in administrative forms
+
+---
+
+## **Notes**
+
+* Indexed on `hallmark_name` for fast search performance
+* Useful for manufacturing, QC, and product classification workflows
+* Inherits lifecycle fields for activation management
+
+---
+
+=============================================================================
+
+---
+
+# **Model: Unit**
+
+## **Model Definition**
+
+Represents a measurement unit used throughout the system for defining quantities such as weight or count.
+Inherits `TimestampMixin` for automatic timestamp tracking and `StatusMixin` for activation control.
+Used as a lookup entity in product, manufacturing, or inventory modules.
+
+---
+
+## **Fields**
+
+| Field Name  | Type         | Description                             |
+| ----------- | ------------ | --------------------------------------- |
+| `id`        | AutoField    | Primary key                             |
+| `unit_name` | CharField    | Unique unit name (e.g., GRAM, PCS, SET) |
+| `is_active` | BooleanField | Indicates whether this unit is active   |
+
+---
+
+## **Relations**
+
+* No internal foreign keys.
+* Functions as a reusable lookup table referenced by multiple models needing a unit of measure.
+
+---
+
+## **Common Business Use Cases**
+
+* Defining quantity measurement units for catalog items
+* Standardizing units in manufacturing workflows
+* Ensuring consistent unit usage across the system
+* Providing selectable unit options in UI forms
+
+---
+
+## **Notes**
+
+* Simple lookup table with unique `unit_name`
+* Frequently used in products, manufacturing, calculations, and inventory modules
+* Inherits timestamp and activation behavior from mixins
+
+---
+
+=================================================================================
+
+---
+
+# **Model: DiamondQuality**
+
+## **Model Definition**
+
+Represents a predefined quality grade used for classifying diamonds in manufacturing and catalog workflows.
+Inherits `TimestampMixin` for automatic time tracking and `StatusMixin` for activation control.
+Acts as a lookup table for diamond-related configurations.
+
+---
+
+## **Fields**
+
+| Field Name  | Type         | Description                             |
+| ----------- | ------------ | --------------------------------------- |
+| `id`        | AutoField    | Primary key                             |
+| `name`      | CharField    | Unique diamond quality name (indexed)   |
+| `is_active` | BooleanField | Indicates whether the quality is active |
+
+---
+
+## **Relations**
+
+* No internal foreign keys.
+
+* Referenced by manufacturing and catalog models requiring diamond quality classification.
+
+* Backing table: **`manufacturing_diamondquality`**
+
+  | Column Name | Description           |
+  | ----------- | --------------------- |
+  | `id`        | Primary key           |
+  | `name`      | Diamond quality value |
+
+---
+
+## **Common Business Use Cases**
+
+* Classifying diamonds during manufacturing workflows
+* Filtering items or batches based on diamond quality
+* Providing selectable options in UI for diamond configuration
+* Managing active/inactive quality grades without schema changes
+
+---
+
+## **Notes**
+
+* Indexed on `name` for fast lookup
+* Used frequently as a lookup table in manufacturing workflows
+* Ensures consistent naming and validation across systems
+
+---
+
+==============================================================
+
+---
+
+# **Model: ProductVariant**
+
+## **Model Definition**
+
+Represents a specific variant of a product, storing variant-level attributes such as weight and update information.
+Inherits `TimestampMixin` for time tracking and `StatusMixin` for activation control.
+Links each product to one of its possible variant configurations.
+
+---
+
+## **Fields**
+
+| Field Name    | Type          | Description                                          |
+| ------------- | ------------- | ---------------------------------------------------- |
+| `id`          | AutoField     | Primary key                                          |
+| `product`     | ForeignKey    | Links to the parent product                          |
+| `variant`     | ForeignKey    | Links to a product variant type (nullable)           |
+| `weight`      | DecimalField  | Weight for this specific product-variant combination |
+| `rec_id`      | CharField     | Optional external reference ID                       |
+| `update_date` | DateTimeField | Timestamp of last update                             |
+| `is_active`   | BooleanField  | Indicates whether this variant record is active      |
+
+---
+
+## **Relations**
+
+* **ForeignKey to `Product`**
+  Stored in table: **`products_productvariant.product_id`**
+  → FK → `products_product.id`
+
+* **ForeignKey to `Variant`**
+  Stored in table: **`products_productvariant.variant_id`**
+  → FK → `products_variant.id`
+
+* Inherited fields:
+
+  * `created_at`, `updated_at`
+  * `is_active`
+
+* Indexed fields for performance:
+
+  * `(product, variant)`
+
+---
+
+## **Common Business Use Cases**
+
+* Defining multiple weight or attribute variations for a product
+* Managing variant-specific inventory or pricing rules
+* Fetching available variants for a specific product
+* Tracking update timestamps for variant records
+* Deactivating variants without deleting them
+
+---
+
+## **Notes**
+
+* Stored in `products_productvariant` with foreign keys to product and variant tables
+* `(product, variant)` index improves lookup speed for variant filtering
+* Supports nullable variant for generic product-level weight entries
+* Used heavily in product configuration, inventory, and pricing workflows
+
+---
+
+====================================================================================
+
+---
+
+# **Model: Variant**
+
+## **Model Definition**
+
+Represents a product variant configuration defined by a combination of carat, color, size, and style.
+Inherits `TimestampMixin` to track creation and modification times.
+Ensures each unique combination of attributes exists only once.
+
+---
+
+## **Fields**
+
+| Field Name | Type       | Description                                |
+| ---------- | ---------- | ------------------------------------------ |
+| `id`       | AutoField  | Primary key                                |
+| `carat`    | ForeignKey | Purity of metal (e.g., 18K, 22K); required |
+| `color`    | ForeignKey | Color variant; optional                    |
+| `style`    | ForeignKey | Style reference; optional, nulls allowed   |
+| `size`     | ForeignKey | Size reference; optional, nulls allowed    |
+
+---
+
+## **Relations**
+
+* **ForeignKey to `Carat`**
+  Related name: `carat_related_variants`
+
+* **ForeignKey to `Color`**
+  Related name: `color_related_variants`
+
+* **ForeignKey to `Style`**
+  Related name: `style_related_variants`
+
+* **ForeignKey to `Size`**
+  Related name: `size_related_variants`
+
+* Database table: **`products_variant`**
+
+  | Column Name | Description                   |
+  | ----------- | ----------------------------- |
+  | `carat_id`  | FK → `manufacturing_carat.id` |
+  | `color_id`  | FK → `manufacturing_color.id` |
+  | `size_id`   | FK → `manufacturing_size.id`  |
+  | `style_id`  | FK → `manufacturing_style.id` |
+
+* Unique constraint:
+  **(`carat`, `color`, `size`, `style`)**
+
+---
+
+## **Common Business Use Cases**
+
+* Defining variant combinations for products
+* Validating if a specific combination already exists
+* Filtering variants based on carat, color, size, or style
+* Populating product configuration options
+* Managing unique variation SKUs tied to attribute combinations
+
+---
+
+## **Notes**
+
+* Acts as a master table for product attribute combinations
+* Unique constraint ensures no duplicate variant configurations
+* Frequently used in product detail pages and SKU builders
+* Prefetch related fields when loading many variants for performance
+
+---
+
+=======================================================================
+
+---
+
+# **Model: Carat**
+
+## **Model Definition**
+
+Represents carat or purity levels associated with metal types.
+Inherits `TimestampMixin` for automatic timestamps and `StatusMixin` for activation control.
+Used for manufacturing, pricing, and quality classification workflows.
+
+---
+
+## **Fields**
+
+| Field Name          | Type         | Description                                            |
+| ------------------- | ------------ | ------------------------------------------------------ |
+| `id`                | AutoField    | Primary key                                            |
+| `carat_name`        | CharField    | Unique name of the carat (indexed for fast lookup)     |
+| `karat`             | IntegerField | Integer representation of the carat value              |
+| `purity_percentage` | DecimalField | Purity percentage (0–100) with validation and indexing |
+| `metal_type`        | ManyToMany   | Associates the carat with one or more metal types      |
+| `is_active`         | BooleanField | Indicates whether this carat value is active           |
+
+---
+
+## **Relations**
+
+* **Many-to-Many with `MetalType`**
+  Join table automatically generated by Django.
+
+  | Column Name    | Description                       |
+  | -------------- | --------------------------------- |
+  | `carat_id`     | FK → `manufacturing_carat.id`     |
+  | `metaltype_id` | FK → `manufacturing_metaltype.id` |
+
+* Inherited fields from mixins:
+
+  * `created_at`, `updated_at`
+  * `is_active`
+
+---
+
+## **Common Business Use Cases**
+
+* Defining purity levels for gold, silver, platinum, etc.
+* Associating purity grades with specific metal types
+* Filtering carat values for product manufacturing and pricing
+* Validating metal purity ranges in workflows
+* Providing standardized carat values for UI dropdowns and catalogs
+
+---
+
+## **Notes**
+
+* Indexed on `carat_name` and `purity_percentage` for fast querying
+* Supports many-to-many assignment to multiple metal types
+* Useful in manufacturing, pricing, and product classification processes
+
+---
+
+=======================================================================
+
+---
+
+# **Model: Color**
+
+## **Model Definition**
+
+Represents a manufacturing color definition that can be associated with one or more metal types.
+Inherits `TimestampMixin` for automatic timestamp fields and `StatusMixin` for activation status handling.
+Used across manufacturing, catalog, and configuration workflows.
+
+---
+
+## **Fields**
+
+| Field Name   | Type         | Description                                    |
+| ------------ | ------------ | ---------------------------------------------- |
+| `id`         | AutoField    | Primary key                                    |
+| `code`       | CharField    | Unique color code; indexed for fast lookups    |
+| `name`       | CharField    | Display name for the color; indexed            |
+| `metal_type` | ManyToMany   | Associates the color with multiple metal types |
+| `is_active`  | BooleanField | Indicates whether this color is active         |
+
+---
+
+## **Relations**
+
+* **Many-to-Many with `MetalType`**
+  Stored in the auto-generated join table:
+  **`manufacturing_color_metal_type`** *(implicit through Django)*
+
+  | Column Name    | Description                       |
+  | -------------- | --------------------------------- |
+  | `color_id`     | FK → `manufacturing_color.id`     |
+  | `metaltype_id` | FK → `manufacturing_metaltype.id` |
+
+* Inherited fields:
+
+  * `created_at`, `updated_at`
+  * `is_active`
+
+---
+
+## **Common Business Use Cases**
+
+* Defining manufacturing color variations for metal types
+* Filtering colors by metal type or code
+* Enabling/disabling color options without deletion
+* Supporting product configuration and manufacturing flows
+* Fast lookups using indexed fields for code and name
+
+---
+
+## **Notes**
+
+* Indexed on both `code` and `name` for optimized search
+* Many-to-many mapping stored in an auto-created join table
+* Useful across catalog, manufacturing, and product setup modules
+
+---
+
+======================================================================
+
+---
+
+# **Model: Size**
+
+## **Model Definition**
+
+Represents a standardized size value used across catalog and manufacturing operations.
+Inherits `TimestampMixin` for timestamp tracking and `StatusMixin` for activation control.
+Acts as a lookup table for size-based filtering or classification.
+
+---
+
+## **Fields**
+
+| Field Name  | Type         | Description                                  |
+| ----------- | ------------ | -------------------------------------------- |
+| `id`        | AutoField    | Primary key                                  |
+| `size`      | CharField    | Unique size value used across the system     |
+| `is_active` | BooleanField | Indicates whether the size is active for use |
+
+---
+
+## **Relations**
+
+* No internal foreign keys.
+* Used as a reference by other models where product or component size is required.
+
+---
+
+## **Common Business Use Cases**
+
+* Providing predefined sizes in product configuration
+* Filtering catalog or manufacturing data based on size
+* Enforcing consistent size values across the system
+* Enabling/disabling size availability without schema changes
+
+---
+
+## **Notes**
+
+* Indexed on `size` for fast lookup and filtering
+* Useful as a global lookup in catalog, manufacturing, and product workflows
+* Ensures consistent and validated size values across the system
+
+---
+
+============================================================================
+
+---
+
+# **Model: Style**
+
+## **Model Definition**
+
+Represents a style classification used across manufacturing and catalog workflows.
+Inherits `TimestampMixin` for automatic timestamp fields and `StatusMixin` for activation control.
+Provides a simple lookup for defining unique style names.
+
+---
+
+## **Fields**
+
+| Field Name   | Type         | Description                              |
+| ------------ | ------------ | ---------------------------------------- |
+| `id`         | AutoField    | Primary key                              |
+| `style_name` | CharField    | Unique style name with database indexing |
+| `is_active`  | BooleanField | Indicates whether this style is active   |
+
+---
+
+## **Relations**
+
+* No internal foreign keys.
+* Acts as a lookup table referenced by manufacturing, catalog, or configuration models.
+
+---
+
+## **Common Business Use Cases**
+
+* Categorizing items based on style classification
+* Providing selectable style options in product configuration
+* Filtering items or designs by style
+* Managing active/inactive style definitions
+
+---
+
+## **Notes**
+
+* Backed by the `manufacturing_style` table with a unique indexed `style_name`
+* Ideal for use in manufacturing workflows and catalog classification
+* Indexes improve query performance on style name lookups
+
+---
+
+======================================================================
+
+---
+
+# **Model: Product**
+
+## **Model Definition**
+
+Represents a complete product entity with detailed attributes including classification, physical properties, diamond properties, manufacturing details, inventory, dates, tags, and business logic.
+Inherits `TimestampMixin` for automatic created/updated timestamps and `StatusMixin` for activation control.
+Associated with multiple catalog, manufacturing, and inventory-related models through foreign keys and many-to-many relationships.
+
+---
+
+## **Fields**
+
+| Field Name            | Type            | Description                     |
+| --------------------- | --------------- | ------------------------------- |
+| `id`                  | AutoField       | Primary key                     |
+| `product_id`          | CharField       | Unique product identifier       |
+| `name`                | CharField       | Human-readable product name     |
+| `finishing`           | CharField       | Finishing type; optional        |
+| `metal_type`          | ForeignKey      | FK → MetalType                  |
+| `project`             | ForeignKey      | FK → Project                    |
+| `category`            | ForeignKey      | FK → Category                   |
+| `sub_category`        | ForeignKey      | FK → SubCategory                |
+| `manufacturing`       | ForeignKey      | FK → Manufacturing              |
+| `hallmark`            | ForeignKey      | FK → Hallmark                   |
+| `gender`              | ForeignKey      | FK → Gender                     |
+| `unit`                | ForeignKey      | FK → Unit                       |
+| `collection`          | ForeignKey      | FK → Collection                 |
+| `sub_collection`      | ForeignKey      | FK → SubCollection              |
+| `default_variant`     | ForeignKey      | FK → ProductVariant             |
+| `base_product`        | ForeignKey      | Self-referencing FK             |
+| `diamond_quality`     | ForeignKey      | FK → DiamondQuality             |
+| `diamond_weight`      | DecimalField    | Diamond weight in carats        |
+| `diamond_quantity`    | IntegerField    | Total diamonds used             |
+| `weight`              | DecimalField    | Total product weight            |
+| `gold_weight`         | DecimalField    | Gold weight                     |
+| `net_weight`          | DecimalField    | Net weight; optional            |
+| `width`               | DecimalField    | Product width                   |
+| `height`              | DecimalField    | Product height                  |
+| `stone_color`         | CharField       | Stone color; optional           |
+| `making_percent`      | DecimalField    | Making percentage               |
+| `other_rate`          | DecimalField    | Additional rate                 |
+| `ej_keyword`          | CharField       | Display/SEO keywords            |
+| `banner_tags`         | TextField       | Banner tags (comma-separated)   |
+| `spl_category_tags`   | TextField       | Special category tags           |
+| `exhibition_tags`     | TextField       | Exhibition tags                 |
+| `qty`                 | IntegerField    | Stock quantity                  |
+| `cw_qty`              | IntegerField    | Current weight quantity         |
+| `moq`                 | IntegerField    | Minimum order quantity          |
+| `sync_update_date`    | DateTimeField   | Sync date from external systems |
+| `design_create_date`  | DateField       | Product design creation date    |
+| `design_update_date`  | DateField       | Last design update date         |
+| `fast_moving_zone`    | ManyToMany      | Through FastMovingZone          |
+| `popular_design_zone` | ManyToMany      | Through PopularDesignZone       |
+| `image_key`           | CharField       | S3 or CDN image path            |
+| `order_line`          | GenericRelation | Related order lines             |
+| `is_active`           | BooleanField    | Active status                   |
+| `is_deleted`          | BooleanField    | Deleted status                  |
+
+---
+
+## **Relations**
+
+### **Foreign Keys (Single Relations)**
+
+Stored in **`products_product`**
+
+| Field                | FK To          |
+| -------------------- | -------------- |
+| `metal_type_id`      | MetalType      |
+| `project_id`         | Project        |
+| `category_id`        | Category       |
+| `sub_category_id`    | SubCategory    |
+| `manufacturing_id`   | Manufacturing  |
+| `hallmark_id`        | Hallmark       |
+| `gender_id`          | Gender         |
+| `unit_id`            | Unit           |
+| `collection_id`      | Collection     |
+| `sub_collection_id`  | SubCollection  |
+| `diamond_quality_id` | DiamondQuality |
+| `base_product_id`    | Product (self) |
+| `default_variant_id` | ProductVariant |
+
+### **Many-to-Many (Through Tables)**
+
+| Through Table       | Description               |
+| ------------------- | ------------------------- |
+| `FastMovingZone`    | Fast moving items by zone |
+| `PopularDesignZone` | Popular designs by zone   |
+
+---
+
+## **Common Business Use Cases**
+
+* Managing inventory, weights, and product lifecycle
+* Filtering products by metal, category, collection, or diamond attributes
+* Associating designs with manufacturing and hallmarking data
+* Computing ratings and surveys via related properties
+* Organizing product listings through tags and zones
+* Serving as master data for orders, pricing, and catalog systems
+
+---
+
+
+## **Notes**
+
+* Indexed extensively for performance across weight, rates, quantities, dates, and chain relationships
+* Enforced constraints ensure non-negative weight and stock quantities
+* Many-to-many zone mappings allow dynamic segmentation for business analytics
+* Comprehensive model linking manufacturing, cataloging, inventory, and user preference systems
+
+---
+
+======================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,197 @@
+# metal type related tables
+manufacturing_metaltype 
+    fields:
+        id
+        metal_name
+        is_active
+    
+# project related tables
+projects_project
+    fields:
+        id
+        project_name
+        is_active
+projects_project_metal_type
+    fields:
+        id
+        project_id   -> FK(projects_project)
+        metaltype_id -> FK(manufacturing_metaltype)
+
+# category related tables
+catalog_category
+    fields:
+        id
+        category_name
+        is_active
+catalog_category_project
+    fields:
+        id
+        category_id -> FK(catalog_category)
+        project_id -> FK(projects_project)
+
+# sub category related tables
+catalog_subcategory
+    fields:
+        id
+        sub_category_name
+catalog_subcategory_category
+    fields:
+        id
+        subcategory_id -> FK(catalog_subcategory)
+        category_id -> FK(catalog_category)
+
+# collection related tables
+catalog_collection
+    fields:
+        id
+        collection_name
+catalog_collection_metal_type
+    fields:
+        id
+        collection_id -> FK(catalog_collection)
+        metaltype_id -> FK(manufacturing_metaltype)
+catalog_collection_project
+    fields:
+        id
+        collection_id -> FK(catalog_collection)
+        project_id -> FK(projects_project)
+catalog_collection_category
+    fields:
+        id
+        collection_id -> FK(catalog_collection)
+        category_id -> FK(catalog_category)
+catalog_collection_sub_category
+    fields:
+        id
+        collection_id -> FK(catalog_collection)
+        subcategory_id -> FK(catalog_subcategory)
+
+#  sub_collection reated tables
+catalog_subcollection
+    fields:
+        id
+        sub_collection_name
+catalog_subcollection_collection
+    fields:
+        id
+        subcollection_id -> FK(catalog_subcollection)
+        collection_id -> FK(catalog_collection)
+
+# gender related tables
+catalog_gender
+    fields:
+        id
+        gender_name
+
+# manufacturing related tables
+manufacturing_manufacturing
+    fields:
+        id
+        code
+
+# hallamrk related tables
+manufacturing_hallmark
+    fields:
+        id
+        hallmark_name
+
+# unit related tables
+projects_unit
+    fields:
+        id
+        unit_name
+
+#  diamond quality related tables
+manufacturing_diamondquality
+    fields:
+        id
+        name
+
+# product variant related tables
+products_productvariant
+    fields:
+        id
+        product_id -> FK(products_product)
+        variant_id  -> FK(products_variant)
+        weight
+        update_date
+        is_active
+
+# product variant master related tables
+products_variant
+    fields:
+        id
+        carat_id -> FK(manufacturing_carat)
+        color_id -> FK(manufacturing_color) 
+        size_id -> FK(manufacturing_size)
+        style_id -> FK(manufacturing_style)
+
+# carat related tables
+manufacturing_carat
+    fields:
+        id
+        carat_name
+
+# color related tables
+manufacturing_color
+    fields: 
+        id
+        code
+
+# size related tables
+manufacturing_size
+    fields:
+        id
+        size
+
+# style related tables
+manufacturing_style
+    fields:
+        id
+        style_name
+        
+# product related tables    
+products_product
+    fields:
+    
+        id
+        product_id
+        name
+        diamond_weight
+        diamond_quantity
+        weight
+        gold_weight
+        net_weight
+        width
+        height
+        stone_color
+        making_percent
+        other_rate
+        qty
+        cw_qty
+        moq
+        finishing
+        # self reference key
+        base_product_id
+        # foriegn keys
+        metal_type_id
+        project_id
+        category_id
+        sub_category_id
+        collection_id
+        sub_collection_id
+        gender_id
+        hallmark_id
+        manufacturing_id        
+        unit_id
+        diamond_quality_id
+        default_variant_id
+        # date related fields
+        created_at
+        updated_at
+        sync_update_date
+        design_create_date
+        design_update_date
+        # status fields
+        is_active
+        is_deleted

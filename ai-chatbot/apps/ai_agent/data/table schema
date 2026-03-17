@@ -1,0 +1,1043 @@
+Table Name                         
+
+cart_cart                                           
+cart_cartproductvariants                            
+cart_cartvariantaudioannotation                     
+catalog_category                                    
+catalog_category_project                            
+catalog_collection                                  
+catalog_collection_category                         
+catalog_collection_metal_type                       
+catalog_collection_project                          
+catalog_collection_sub_category                     
+catalog_gender                                      
+catalog_subcategory                                 
+catalog_subcategory_category                        
+catalog_subcollection                               
+catalog_subcollection_collection                    
+custom_order_customordercart                        
+custom_order_customordercartproductvariants         
+custom_order_customordercartvariantaudioannotation  
+custom_order_customordervariant                     
+custom_order_customproduct                          
+custom_order_customproduct_fast_moving_zone         
+custom_order_customproduct_popular_design_zone      
+customers_customer                                  
+customers_productcustomer                           
+customers_productmakingchargepercustomer            
+diamond_stone_details                               
+invoice_invoice                                     
+invoice_invoiceproducts                             
+invoice_inwardmovement                              
+invoice_outwardmovement                             
+manufacturing_carat                                 
+manufacturing_carat_metal_type                      
+manufacturing_color                                 
+manufacturing_color_metal_type                      
+manufacturing_designbank                            
+manufacturing_designbatch                           
+manufacturing_diamondcolor                          
+manufacturing_diamondquality                        
+manufacturing_diamondsievecode                      
+manufacturing_diamondsize                           
+manufacturing_diamondstyle                          
+manufacturing_diamondunit                           
+manufacturing_hallmark                              
+manufacturing_makingcharge                          
+manufacturing_manufacturing                         
+manufacturing_metaltype                             
+manufacturing_size                                  
+manufacturing_stonedetails                          
+manufacturing_stonetype                             
+manufacturing_stoneunit                             
+manufacturing_style                                 
+order_management_order                              
+order_management_orderline                          
+order_management_ordersplit                         
+order_management_ordersplitbyproject                
+order_management_ordersplitbyproject_project        
+order_management_reorderhistory                     
+order_management_reordertrack                       
+products_fastmovingzone                             
+products_populardesignzone                          
+products_product                                    
+products_productsurvey                              
+products_productvariant                             
+products_variant                                    
+projects_project                                    
+projects_project_metal_type                         
+projects_unit                                       
+projects_zone                                       
+users_user                                          
+users_useraddon                                     
+users_useraddon_operational_zones                   
+users_userpreference                                
+users_userpreferencedefault                         
+
+Table name with thier fields
+
+                     table_name                     |            column_name            |        data_type         | is_nullable | column_default 
+----------------------------------------------------+-----------------------------------+--------------------------+-------------+----------------
+ cart_cart                                          | id                                | bigint                   | NO          | 
+ cart_cart                                          | created_at                        | timestamp with time zone | NO          | 
+ cart_cart                                          | updated_at                        | timestamp with time zone | NO          | 
+ cart_cart                                          | is_deleted                        | boolean                  | NO          | 
+ cart_cart                                          | is_active                         | boolean                  | NO          | 
+ cart_cart                                          | created_by_id                     | bigint                   | YES         | 
+ cart_cart                                          | customer_id                       | bigint                   | YES         | 
+ cart_cart                                          | updated_by_id                     | bigint                   | YES         | 
+ cart_cart                                          | user_id                           | bigint                   | YES         | 
+ cart_cart                                          | user_preference_id                | bigint                   | YES         | 
+ cart_cart                                          | order_placed                      | boolean                  | NO          | 
+ cart_cart                                          | remarks                           | jsonb                    | YES         | 
+ cart_cart                                          | reordered_from_order_id           | bigint                   | YES         | 
+ cart_cart                                          | reordered_from_order_split_id     | bigint                   | YES         | 
+ cart_cartproductvariants                           | id                                | bigint                   | NO          | 
+ cart_cartproductvariants                           | created_at                        | timestamp with time zone | NO          | 
+ cart_cartproductvariants                           | updated_at                        | timestamp with time zone | NO          | 
+ cart_cartproductvariants                           | is_deleted                        | boolean                  | NO          | 
+ cart_cartproductvariants                           | is_active                         | boolean                  | NO          | 
+ cart_cartproductvariants                           | quantity                          | integer                  | NO          | 
+ cart_cartproductvariants                           | annotation_image                  | character varying        | YES         | 
+ cart_cartproductvariants                           | remarks                           | jsonb                    | YES         | 
+ cart_cartproductvariants                           | cart_id                           | bigint                   | NO          | 
+ cart_cartproductvariants                           | created_by_id                     | bigint                   | YES         | 
+ cart_cartproductvariants                           | product_variant_id                | bigint                   | NO          | 
+ cart_cartproductvariants                           | updated_by_id                     | bigint                   | YES         | 
+ cart_cartproductvariants                           | no_variant                        | boolean                  | NO          | 
+ cart_cartproductvariants                           | import_from_excel                 | boolean                  | NO          | 
+ cart_cartproductvariants                           | moved_to_wishlist                 | boolean                  | NO          | 
+ cart_cartproductvariants                           | order_placed                      | boolean                  | NO          | 
+ cart_cartproductvariants                           | order_variant_from_order_id       | bigint                   | YES         | 
+ cart_cartproductvariants                           | remark_text                       | text                     | YES         | 
+ cart_cartvariantaudioannotation                    | id                                | bigint                   | NO          | 
+ cart_cartvariantaudioannotation                    | created_at                        | timestamp with time zone | NO          | 
+ cart_cartvariantaudioannotation                    | updated_at                        | timestamp with time zone | NO          | 
+ cart_cartvariantaudioannotation                    | is_deleted                        | boolean                  | NO          | 
+ cart_cartvariantaudioannotation                    | is_active                         | boolean                  | NO          | 
+ cart_cartvariantaudioannotation                    | audio_file                        | character varying        | NO          | 
+ cart_cartvariantaudioannotation                    | cart_variant_id                   | bigint                   | NO          | 
+ cart_cartvariantaudioannotation                    | created_by_id                     | bigint                   | YES         | 
+ cart_cartvariantaudioannotation                    | updated_by_id                     | bigint                   | YES         | 
+ cart_cartvariantaudioannotation                    | uploaded_by_id                    | bigint                   | YES         | 
+ catalog_category                                   | id                                | bigint                   | NO          | 
+ catalog_category                                   | created_at                        | timestamp with time zone | NO          | 
+ catalog_category                                   | updated_at                        | timestamp with time zone | NO          | 
+ catalog_category                                   | is_deleted                        | boolean                  | NO          | 
+ catalog_category                                   | is_active                         | boolean                  | NO          | 
+ catalog_category                                   | category_name                     | character varying        | NO          | 
+ catalog_category                                   | description                       | text                     | NO          | 
+ catalog_category                                   | layout                            | boolean                  | NO          | 
+ catalog_category_project                           | id                                | bigint                   | NO          | 
+ catalog_category_project                           | category_id                       | bigint                   | NO          | 
+ catalog_category_project                           | project_id                        | bigint                   | NO          | 
+ catalog_collection                                 | id                                | bigint                   | NO          | 
+ catalog_collection                                 | created_at                        | timestamp with time zone | NO          | 
+ catalog_collection                                 | updated_at                        | timestamp with time zone | NO          | 
+ catalog_collection                                 | is_deleted                        | boolean                  | NO          | 
+ catalog_collection                                 | is_active                         | boolean                  | NO          | 
+ catalog_collection                                 | collection_name                   | character varying        | NO          | 
+ catalog_collection_category                        | id                                | bigint                   | NO          | 
+ catalog_collection_category                        | collection_id                     | bigint                   | NO          | 
+ catalog_collection_category                        | category_id                       | bigint                   | NO          | 
+ catalog_collection_metal_type                      | id                                | bigint                   | NO          | 
+ catalog_collection_metal_type                      | collection_id                     | bigint                   | NO          | 
+ catalog_collection_metal_type                      | metaltype_id                      | bigint                   | NO          | 
+ catalog_collection_project                         | id                                | bigint                   | NO          | 
+ catalog_collection_project                         | collection_id                     | bigint                   | NO          | 
+ catalog_collection_project                         | project_id                        | bigint                   | NO          | 
+ catalog_collection_sub_category                    | id                                | bigint                   | NO          | 
+ catalog_collection_sub_category                    | collection_id                     | bigint                   | NO          | 
+ catalog_collection_sub_category                    | subcategory_id                    | bigint                   | NO          | 
+ catalog_gender                                     | id                                | bigint                   | NO          | 
+ catalog_gender                                     | created_at                        | timestamp with time zone | NO          | 
+ catalog_gender                                     | updated_at                        | timestamp with time zone | NO          | 
+ catalog_gender                                     | is_deleted                        | boolean                  | NO          | 
+ catalog_gender                                     | is_active                         | boolean                  | NO          | 
+ catalog_gender                                     | gender_name                       | character varying        | NO          | 
+ catalog_subcategory                                | id                                | bigint                   | NO          | 
+ catalog_subcategory                                | created_at                        | timestamp with time zone | NO          | 
+ catalog_subcategory                                | updated_at                        | timestamp with time zone | NO          | 
+ catalog_subcategory                                | is_deleted                        | boolean                  | NO          | 
+ catalog_subcategory                                | is_active                         | boolean                  | NO          | 
+ catalog_subcategory                                | sub_category_name                 | character varying        | NO          | 
+ catalog_subcategory_category                       | id                                | bigint                   | NO          | 
+ catalog_subcategory_category                       | subcategory_id                    | bigint                   | NO          | 
+ catalog_subcategory_category                       | category_id                       | bigint                   | NO          | 
+ catalog_subcollection                              | id                                | bigint                   | NO          | 
+ catalog_subcollection                              | created_at                        | timestamp with time zone | NO          | 
+ catalog_subcollection                              | updated_at                        | timestamp with time zone | NO          | 
+ catalog_subcollection                              | is_deleted                        | boolean                  | NO          | 
+ catalog_subcollection                              | is_active                         | boolean                  | NO          | 
+ catalog_subcollection                              | sub_collection_name               | character varying        | NO          | 
+ catalog_subcollection_collection                   | id                                | bigint                   | NO          | 
+ catalog_subcollection_collection                   | subcollection_id                  | bigint                   | NO          | 
+ catalog_subcollection_collection                   | collection_id                     | bigint                   | NO          | 
+ custom_order_customordercart                       | id                                | bigint                   | NO          | 
+ custom_order_customordercart                       | created_at                        | timestamp with time zone | NO          | 
+ custom_order_customordercart                       | updated_at                        | timestamp with time zone | NO          | 
+ custom_order_customordercart                       | is_deleted                        | boolean                  | NO          | 
+ custom_order_customordercart                       | is_active                         | boolean                  | NO          | 
+ custom_order_customordercart                       | order_placed                      | boolean                  | NO          | 
+ custom_order_customordercart                       | remarks                           | jsonb                    | YES         | 
+ custom_order_customordercart                       | created_by_id                     | bigint                   | YES         | 
+ custom_order_customordercart                       | customer_id                       | bigint                   | YES         | 
+ custom_order_customordercart                       | updated_by_id                     | bigint                   | YES         | 
+ custom_order_customordercart                       | user_id                           | bigint                   | YES         | 
+ custom_order_customordercart                       | user_preference_id                | bigint                   | YES         | 
+ custom_order_customordercart                       | reordered_from_order_id           | bigint                   | YES         | 
+ custom_order_customordercart                       | reordered_from_order_split_id     | bigint                   | YES         | 
+ custom_order_customordercartproductvariants        | id                                | bigint                   | NO          | 
+ custom_order_customordercartproductvariants        | created_at                        | timestamp with time zone | NO          | 
+ custom_order_customordercartproductvariants        | updated_at                        | timestamp with time zone | NO          | 
+ custom_order_customordercartproductvariants        | is_deleted                        | boolean                  | NO          | 
+ custom_order_customordercartproductvariants        | is_active                         | boolean                  | NO          | 
+ custom_order_customordercartproductvariants        | quantity                          | integer                  | NO          | 
+ custom_order_customordercartproductvariants        | annotation_image                  | character varying        | YES         | 
+ custom_order_customordercartproductvariants        | remarks                           | jsonb                    | YES         | 
+ custom_order_customordercartproductvariants        | order_placed                      | boolean                  | NO          | 
+ custom_order_customordercartproductvariants        | cart_id                           | bigint                   | NO          | 
+ custom_order_customordercartproductvariants        | created_by_id                     | bigint                   | YES         | 
+ custom_order_customordercartproductvariants        | updated_by_id                     | bigint                   | YES         | 
+ custom_order_customordercartproductvariants        | product_variant_id                | bigint                   | NO          | 
+ custom_order_customordercartproductvariants        | no_variant                        | boolean                  | NO          | 
+ custom_order_customordercartproductvariants        | order_variant_from_order_id       | bigint                   | YES         | 
+ custom_order_customordercartproductvariants        | remark_text                       | text                     | YES         | 
+ custom_order_customordercartvariantaudioannotation | id                                | bigint                   | NO          | 
+ custom_order_customordercartvariantaudioannotation | created_at                        | timestamp with time zone | NO          | 
+ custom_order_customordercartvariantaudioannotation | updated_at                        | timestamp with time zone | NO          | 
+ custom_order_customordercartvariantaudioannotation | is_deleted                        | boolean                  | NO          | 
+ custom_order_customordercartvariantaudioannotation | is_active                         | boolean                  | NO          | 
+ custom_order_customordercartvariantaudioannotation | audio_file                        | character varying        | NO          | 
+ custom_order_customordercartvariantaudioannotation | cart_variant_id                   | bigint                   | NO          | 
+ custom_order_customordercartvariantaudioannotation | created_by_id                     | bigint                   | YES         | 
+ custom_order_customordercartvariantaudioannotation | updated_by_id                     | bigint                   | YES         | 
+ custom_order_customordercartvariantaudioannotation | uploaded_by_id                    | bigint                   | YES         | 
+ custom_order_customordervariant                    | id                                | bigint                   | NO          | 
+ custom_order_customordervariant                    | created_at                        | timestamp with time zone | NO          | 
+ custom_order_customordervariant                    | updated_at                        | timestamp with time zone | NO          | 
+ custom_order_customordervariant                    | is_deleted                        | boolean                  | NO          | 
+ custom_order_customordervariant                    | is_active                         | boolean                  | NO          | 
+ custom_order_customordervariant                    | weight                            | numeric                  | NO          | 
+ custom_order_customordervariant                    | created_by_id                     | bigint                   | YES         | 
+ custom_order_customordervariant                    | updated_by_id                     | bigint                   | YES         | 
+ custom_order_customordervariant                    | variant_id                        | bigint                   | YES         | 
+ custom_order_customordervariant                    | product_id                        | bigint                   | NO          | 
+ custom_order_customproduct                         | id                                | bigint                   | NO          | 
+ custom_order_customproduct                         | created_at                        | timestamp with time zone | NO          | 
+ custom_order_customproduct                         | updated_at                        | timestamp with time zone | NO          | 
+ custom_order_customproduct                         | is_deleted                        | boolean                  | NO          | 
+ custom_order_customproduct                         | is_active                         | boolean                  | NO          | 
+ custom_order_customproduct                         | name                              | character varying        | YES         | 
+ custom_order_customproduct                         | diamond_weight                    | numeric                  | YES         | 
+ custom_order_customproduct                         | diamond_quantity                  | integer                  | YES         | 
+ custom_order_customproduct                         | weight                            | numeric                  | YES         | 
+ custom_order_customproduct                         | gold_weight                       | numeric                  | YES         | 
+ custom_order_customproduct                         | net_weight                        | numeric                  | YES         | 
+ custom_order_customproduct                         | width                             | numeric                  | YES         | 
+ custom_order_customproduct                         | height                            | numeric                  | YES         | 
+ custom_order_customproduct                         | stone_color                       | character varying        | YES         | 
+ custom_order_customproduct                         | making_percent                    | numeric                  | YES         | 
+ custom_order_customproduct                         | other_rate                        | numeric                  | YES         | 
+ custom_order_customproduct                         | ej_keyword                        | character varying        | YES         | 
+ custom_order_customproduct                         | keyword_tags                      | text                     | YES         | 
+ custom_order_customproduct                         | banner_tags                       | text                     | YES         | 
+ custom_order_customproduct                         | spl_category_tags                 | text                     | YES         | 
+ custom_order_customproduct                         | exhibition_tags                   | text                     | YES         | 
+ custom_order_customproduct                         | qty                               | integer                  | YES         | 
+ custom_order_customproduct                         | cw_qty                            | integer                  | YES         | 
+ custom_order_customproduct                         | moq                               | integer                  | YES         | 
+ custom_order_customproduct                         | sync_update_date                  | timestamp with time zone | YES         | 
+ custom_order_customproduct                         | design_create_date                | date                     | YES         | 
+ custom_order_customproduct                         | design_update_date                | date                     | YES         | 
+ custom_order_customproduct                         | custom_order                      | boolean                  | NO          | 
+ custom_order_customproduct                         | remarks                           | text                     | YES         | 
+ custom_order_customproduct                         | image                             | character varying        | YES         | 
+ custom_order_customproduct                         | base_product_id                   | bigint                   | YES         | 
+ custom_order_customproduct                         | category_id                       | bigint                   | YES         | 
+ custom_order_customproduct                         | collection_id                     | bigint                   | YES         | 
+ custom_order_customproduct                         | created_by_id                     | bigint                   | YES         | 
+ custom_order_customproduct                         | customer_id                       | bigint                   | YES         | 
+ custom_order_customproduct                         | diamond_quality_id                | bigint                   | YES         | 
+ custom_order_customproduct                         | gender_id                         | bigint                   | YES         | 
+ custom_order_customproduct                         | hallmark_id                       | bigint                   | YES         | 
+ custom_order_customproduct                         | manufacturing_id                  | bigint                   | YES         | 
+ custom_order_customproduct                         | metal_type_id                     | bigint                   | YES         | 
+ custom_order_customproduct                         | project_id                        | bigint                   | YES         | 
+ custom_order_customproduct                         | sub_category_id                   | bigint                   | YES         | 
+ custom_order_customproduct                         | sub_collection_id                 | bigint                   | YES         | 
+ custom_order_customproduct                         | unit_id                           | bigint                   | YES         | 
+ custom_order_customproduct                         | updated_by_id                     | bigint                   | YES         | 
+ custom_order_customproduct                         | user_preference_id                | bigint                   | YES         | 
+ custom_order_customproduct                         | product_id                        | character varying        | YES         | 
+ custom_order_customproduct                         | image_key                         | character varying        | NO          | 
+ custom_order_customproduct                         | created_date                      | date                     | YES         | 
+ custom_order_customproduct                         | updated_date                      | date                     | YES         | 
+ custom_order_customproduct_fast_moving_zone        | id                                | bigint                   | NO          | 
+ custom_order_customproduct_fast_moving_zone        | customproduct_id                  | bigint                   | NO          | 
+ custom_order_customproduct_fast_moving_zone        | zone_id                           | bigint                   | NO          | 
+ custom_order_customproduct_popular_design_zone     | id                                | bigint                   | NO          | 
+ custom_order_customproduct_popular_design_zone     | customproduct_id                  | bigint                   | NO          | 
+ custom_order_customproduct_popular_design_zone     | zone_id                           | bigint                   | NO          | 
+ customers_customer                                 | id                                | bigint                   | NO          | 
+ customers_customer                                 | created_at                        | timestamp with time zone | NO          | 
+ customers_customer                                 | updated_at                        | timestamp with time zone | NO          | 
+ customers_customer                                 | is_deleted                        | boolean                  | NO          | 
+ customers_customer                                 | customer_id                       | character varying        | NO          | 
+ customers_customer                                 | name                              | character varying        | NO          | 
+ customers_customer                                 | alias_name                        | character varying        | YES         | 
+ customers_customer                                 | email                             | character varying        | NO          | 
+ customers_customer                                 | phone                             | character varying        | NO          | 
+ customers_customer                                 | is_active                         | boolean                  | NO          | 
+ customers_customer                                 | moq                               | boolean                  | NO          | 
+ customers_customer                                 | wastage                           | boolean                  | NO          | 
+ customers_customer                                 | making_charge                     | boolean                  | NO          | 
+ customers_customer                                 | start_date                        | date                     | YES         | 
+ customers_customer                                 | end_date                          | date                     | YES         | 
+ customers_customer                                 | created_date                      | timestamp with time zone | NO          | 
+ customers_customer                                 | customer_role                     | character varying        | YES         | 
+ customers_customer                                 | created_by_id                     | bigint                   | YES         | 
+ customers_customer                                 | dealer_id                         | bigint                   | YES         | 
+ customers_customer                                 | updated_by_id                     | bigint                   | YES         | 
+ customers_customer                                 | zone_id                           | bigint                   | YES         | 
+ customers_customer                                 | erp_customer_id                   | character varying        | YES         | 
+ customers_customer                                 | _id                               | character varying        | YES         | 
+ customers_customer                                 | _rev                              | character varying        | YES         | 
+ customers_customer                                 | account_relation                  | character varying        | YES         | 
+ customers_customer                                 | default_pref_id                   | character varying        | YES         | 
+ customers_customer                                 | order_placing                     | boolean                  | NO          | 
+ customers_customer                                 | orderable_qty                     | smallint                 | NO          | 
+ customers_customer                                 | customer_expire_time_limit        | timestamp with time zone | YES         | 
+ customers_customer                                 | share_permissions                 | ARRAY                    | NO          | 
+ customers_customer                                 | can_export                        | boolean                  | NO          | 
+ customers_customer                                 | can_share                         | boolean                  | NO          | 
+ customers_customer                                 | customer_start_date               | timestamp with time zone | YES         | 
+ customers_productcustomer                          | id                                | bigint                   | NO          | 
+ customers_productcustomer                          | last_viewed                       | timestamp with time zone | YES         | 
+ customers_productcustomer                          | customer_id                       | bigint                   | NO          | 
+ customers_productcustomer                          | product_id                        | bigint                   | NO          | 
+ customers_productmakingchargepercustomer           | id                                | bigint                   | NO          | 
+ customers_productmakingchargepercustomer           | created_at                        | timestamp with time zone | NO          | 
+ customers_productmakingchargepercustomer           | updated_at                        | timestamp with time zone | NO          | 
+ customers_productmakingchargepercustomer           | is_deleted                        | boolean                  | NO          | 
+ customers_productmakingchargepercustomer           | is_active                         | boolean                  | NO          | 
+ customers_productmakingchargepercustomer           | mc_rate                           | numeric                  | YES         | 
+ customers_productmakingchargepercustomer           | created_by_id                     | bigint                   | YES         | 
+ customers_productmakingchargepercustomer           | customer_id                       | bigint                   | NO          | 
+ customers_productmakingchargepercustomer           | product_id                        | bigint                   | NO          | 
+ customers_productmakingchargepercustomer           | product_variant_id                | bigint                   | NO          | 
+ customers_productmakingchargepercustomer           | updated_by_id                     | bigint                   | YES         | 
+ diamond_stone_details                              | id                                | bigint                   | NO          | 
+ diamond_stone_details                              | created_at                        | timestamp with time zone | NO          | 
+ diamond_stone_details                              | updated_at                        | timestamp with time zone | NO          | 
+ diamond_stone_details                              | is_deleted                        | boolean                  | NO          | 
+ diamond_stone_details                              | is_active                         | boolean                  | NO          | 
+ diamond_stone_details                              | cw_qty                            | integer                  | NO          | 
+ diamond_stone_details                              | qty                               | numeric                  | NO          | 
+ diamond_stone_details                              | color_id                          | bigint                   | NO          | 
+ diamond_stone_details                              | product_id                        | bigint                   | NO          | 
+ diamond_stone_details                              | sieve_code_id                     | bigint                   | NO          | 
+ diamond_stone_details                              | size_id                           | bigint                   | NO          | 
+ diamond_stone_details                              | style_id                          | bigint                   | NO          | 
+ diamond_stone_details                              | unit_id                           | bigint                   | NO          | 
+ invoice_invoice                                    | id                                | bigint                   | NO          | 
+ invoice_invoice                                    | created_at                        | timestamp with time zone | NO          | 
+ invoice_invoice                                    | updated_at                        | timestamp with time zone | NO          | 
+ invoice_invoice                                    | invoice_id                        | character varying        | NO          | 
+ invoice_invoice                                    | sales_id                          | character varying        | NO          | 
+ invoice_invoice                                    | invoice_date                      | date                     | NO          | 
+ invoice_invoice                                    | customer_id                       | bigint                   | NO          | 
+ invoice_invoice                                    | created_by_id                     | bigint                   | YES         | 
+ invoice_invoice                                    | updated_by_id                     | bigint                   | YES         | 
+ invoice_invoice                                    | invoice_created_date              | date                     | NO          | 
+ invoice_invoice                                    | status                            | character varying        | NO          | 
+ invoice_invoiceproducts                            | id                                | bigint                   | NO          | 
+ invoice_invoiceproducts                            | created_at                        | timestamp with time zone | NO          | 
+ invoice_invoiceproducts                            | updated_at                        | timestamp with time zone | NO          | 
+ invoice_invoiceproducts                            | object_id                         | integer                  | YES         | 
+ invoice_invoiceproducts                            | type                              | character varying        | NO          | 
+ invoice_invoiceproducts                            | pdscw_qty                         | integer                  | NO          | 
+ invoice_invoiceproducts                            | content_type_id                   | integer                  | YES         | 
+ invoice_invoiceproducts                            | created_by_id                     | bigint                   | YES         | 
+ invoice_invoiceproducts                            | invoice_id                        | bigint                   | NO          | 
+ invoice_invoiceproducts                            | updated_by_id                     | bigint                   | YES         | 
+ invoice_invoiceproducts                            | remaining_qty                     | integer                  | NO          | 
+ invoice_invoiceproducts                            | total_inward_qty                  | integer                  | NO          | 
+ invoice_invoiceproducts                            | total_outward_qty                 | integer                  | NO          | 
+ invoice_inwardmovement                             | id                                | bigint                   | NO          | 
+ invoice_inwardmovement                             | created_at                        | timestamp with time zone | NO          | 
+ invoice_inwardmovement                             | updated_at                        | timestamp with time zone | NO          | 
+ invoice_inwardmovement                             | quantity                          | integer                  | NO          | 
+ invoice_inwardmovement                             | movement_date                     | timestamp with time zone | NO          | 
+ invoice_inwardmovement                             | remarks                           | text                     | YES         | 
+ invoice_inwardmovement                             | created_by_id                     | bigint                   | YES         | 
+ invoice_inwardmovement                             | invoice_product_id                | bigint                   | NO          | 
+ invoice_inwardmovement                             | updated_by_id                     | bigint                   | YES         | 
+ invoice_outwardmovement                            | id                                | bigint                   | NO          | 
+ invoice_outwardmovement                            | created_at                        | timestamp with time zone | NO          | 
+ invoice_outwardmovement                            | updated_at                        | timestamp with time zone | NO          | 
+ invoice_outwardmovement                            | quantity                          | integer                  | NO          | 
+ invoice_outwardmovement                            | movement_date                     | timestamp with time zone | NO          | 
+ invoice_outwardmovement                            | remarks                           | text                     | YES         | 
+ invoice_outwardmovement                            | created_by_id                     | bigint                   | YES         | 
+ invoice_outwardmovement                            | invoice_product_id                | bigint                   | NO          | 
+ invoice_outwardmovement                            | updated_by_id                     | bigint                   | YES         | 
+ manufacturing_carat                                | id                                | bigint                   | NO          | 
+ manufacturing_carat                                | carat_name                        | character varying        | NO          | 
+ manufacturing_carat                                | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_carat                                | is_active                         | boolean                  | NO          | 
+ manufacturing_carat                                | is_deleted                        | boolean                  | NO          | 
+ manufacturing_carat                                | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_carat                                | karat                             | integer                  | NO          | 
+ manufacturing_carat                                | purity_percentage                 | numeric                  | NO          | 
+ manufacturing_carat_metal_type                     | id                                | bigint                   | NO          | 
+ manufacturing_carat_metal_type                     | carat_id                          | bigint                   | NO          | 
+ manufacturing_carat_metal_type                     | metaltype_id                      | bigint                   | NO          | 
+ manufacturing_color                                | id                                | bigint                   | NO          | 
+ manufacturing_color                                | code                              | character varying        | NO          | 
+ manufacturing_color                                | name                              | character varying        | NO          | 
+ manufacturing_color                                | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_color                                | is_active                         | boolean                  | NO          | 
+ manufacturing_color                                | is_deleted                        | boolean                  | NO          | 
+ manufacturing_color                                | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_color_metal_type                     | id                                | bigint                   | NO          | 
+ manufacturing_color_metal_type                     | color_id                          | bigint                   | NO          | 
+ manufacturing_color_metal_type                     | metaltype_id                      | bigint                   | NO          | 
+ manufacturing_designbank                           | id                                | bigint                   | NO          | 
+ manufacturing_designbank                           | design_id                         | character varying        | NO          | 
+ manufacturing_designbank                           | name                              | character varying        | NO          | 
+ manufacturing_designbank                           | description                       | text                     | NO          | 
+ manufacturing_designbank                           | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_designbank                           | is_active                         | boolean                  | NO          | 
+ manufacturing_designbank                           | is_deleted                        | boolean                  | NO          | 
+ manufacturing_designbank                           | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_designbatch                          | id                                | bigint                   | NO          | 
+ manufacturing_designbatch                          | batch                             | character varying        | NO          | 
+ manufacturing_designbatch                          | year                              | integer                  | NO          | 
+ manufacturing_designbatch                          | month                             | integer                  | NO          | 
+ manufacturing_designbatch                          | description                       | text                     | NO          | 
+ manufacturing_designbatch                          | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_designbatch                          | is_active                         | boolean                  | NO          | 
+ manufacturing_designbatch                          | is_deleted                        | boolean                  | NO          | 
+ manufacturing_designbatch                          | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondcolor                         | id                                | bigint                   | NO          | 
+ manufacturing_diamondcolor                         | is_deleted                        | boolean                  | NO          | 
+ manufacturing_diamondcolor                         | is_active                         | boolean                  | NO          | 
+ manufacturing_diamondcolor                         | code                              | character varying        | NO          | 
+ manufacturing_diamondquality                       | id                                | bigint                   | NO          | 
+ manufacturing_diamondquality                       | name                              | character varying        | NO          | 
+ manufacturing_diamondquality                       | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondquality                       | is_active                         | boolean                  | NO          | 
+ manufacturing_diamondquality                       | is_deleted                        | boolean                  | NO          | 
+ manufacturing_diamondquality                       | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondsievecode                     | id                                | bigint                   | NO          | 
+ manufacturing_diamondsievecode                     | code                              | character varying        | NO          | 
+ manufacturing_diamondsievecode                     | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondsievecode                     | is_active                         | boolean                  | NO          | 
+ manufacturing_diamondsievecode                     | is_deleted                        | boolean                  | NO          | 
+ manufacturing_diamondsievecode                     | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondsize                          | id                                | bigint                   | NO          | 
+ manufacturing_diamondsize                          | size                              | character varying        | NO          | 
+ manufacturing_diamondsize                          | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondsize                          | is_active                         | boolean                  | NO          | 
+ manufacturing_diamondsize                          | is_deleted                        | boolean                  | NO          | 
+ manufacturing_diamondsize                          | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondstyle                         | id                                | bigint                   | NO          | 
+ manufacturing_diamondstyle                         | style_name                        | character varying        | NO          | 
+ manufacturing_diamondstyle                         | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondstyle                         | is_active                         | boolean                  | NO          | 
+ manufacturing_diamondstyle                         | is_deleted                        | boolean                  | NO          | 
+ manufacturing_diamondstyle                         | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondunit                          | id                                | bigint                   | NO          | 
+ manufacturing_diamondunit                          | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondunit                          | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_diamondunit                          | is_deleted                        | boolean                  | NO          | 
+ manufacturing_diamondunit                          | is_active                         | boolean                  | NO          | 
+ manufacturing_diamondunit                          | unit_name                         | character varying        | NO          | 
+ manufacturing_hallmark                             | id                                | bigint                   | NO          | 
+ manufacturing_hallmark                             | hallmark_name                     | character varying        | NO          | 
+ manufacturing_hallmark                             | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_hallmark                             | is_active                         | boolean                  | NO          | 
+ manufacturing_hallmark                             | is_deleted                        | boolean                  | NO          | 
+ manufacturing_hallmark                             | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_makingcharge                         | id                                | bigint                   | NO          | 
+ manufacturing_makingcharge                         | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_makingcharge                         | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_makingcharge                         | is_deleted                        | boolean                  | NO          | 
+ manufacturing_makingcharge                         | is_active                         | boolean                  | NO          | 
+ manufacturing_makingcharge                         | accountCode                       | smallint                 | YES         | 
+ manufacturing_makingcharge                         | accountRelation                   | character varying        | YES         | 
+ manufacturing_makingcharge                         | activate                          | boolean                  | NO          | 
+ manufacturing_makingcharge                         | from_weight                       | numeric                  | YES         | 
+ manufacturing_makingcharge                         | gross_mc                          | numeric                  | YES         | 
+ manufacturing_makingcharge                         | making_unit                       | numeric                  | YES         | 
+ manufacturing_makingcharge                         | making_unit_type                  | smallint                 | YES         | 
+ manufacturing_makingcharge                         | making_sales_agreement_ref_rec_id | smallint                 | YES         | 
+ manufacturing_makingcharge                         | max_metal_rate                    | numeric                  | YES         | 
+ manufacturing_makingcharge                         | min_metal_rate                    | numeric                  | YES         | 
+ manufacturing_makingcharge                         | mk_rate_type                      | numeric                  | YES         | 
+ manufacturing_makingcharge                         | mk_rate                           | numeric                  | YES         | 
+ manufacturing_makingcharge                         | mk_type                           | numeric                  | YES         | 
+ manufacturing_makingcharge                         | sub_party                         | character varying        | YES         | 
+ manufacturing_makingcharge                         | to_weight                         | numeric                  | YES         | 
+ manufacturing_makingcharge                         | valid_from                        | timestamp with time zone | YES         | 
+ manufacturing_makingcharge                         | valid_to                          | timestamp with time zone | YES         | 
+ manufacturing_makingcharge                         | wast_qty                          | numeric                  | YES         | 
+ manufacturing_makingcharge                         | wast_type                         | numeric                  | YES         | 
+ manufacturing_makingcharge                         | data_area_id                      | character varying        | YES         | 
+ manufacturing_makingcharge                         | rec_id                            | character varying        | YES         | 
+ manufacturing_makingcharge                         | modified_date_time                | timestamp with time zone | YES         | 
+ manufacturing_makingcharge                         | modified_by                       | character varying        | YES         | 
+ manufacturing_makingcharge                         | created_date_time                 | timestamp with time zone | YES         | 
+ manufacturing_makingcharge                         | mc_created_by                     | character varying        | YES         | 
+ manufacturing_makingcharge                         | color_id                          | bigint                   | YES         | 
+ manufacturing_makingcharge                         | created_by_id                     | bigint                   | YES         | 
+ manufacturing_makingcharge                         | metal_type_id                     | bigint                   | YES         | 
+ manufacturing_makingcharge                         | mfg_code_id                       | bigint                   | YES         | 
+ manufacturing_makingcharge                         | size_id                           | bigint                   | YES         | 
+ manufacturing_makingcharge                         | style_id                          | bigint                   | YES         | 
+ manufacturing_makingcharge                         | updated_by_id                     | bigint                   | YES         | 
+ manufacturing_makingcharge                         | config_id                         | bigint                   | YES         | 
+ manufacturing_manufacturing                        | id                                | bigint                   | NO          | 
+ manufacturing_manufacturing                        | code                              | character varying        | NO          | 
+ manufacturing_manufacturing                        | description                       | text                     | NO          | 
+ manufacturing_manufacturing                        | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_manufacturing                        | is_active                         | boolean                  | NO          | 
+ manufacturing_manufacturing                        | is_deleted                        | boolean                  | NO          | 
+ manufacturing_manufacturing                        | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_metaltype                            | id                                | bigint                   | NO          | 
+ manufacturing_metaltype                            | metal_name                        | character varying        | NO          | 
+ manufacturing_metaltype                            | is_active                         | boolean                  | NO          | 
+ manufacturing_metaltype                            | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_metaltype                            | is_deleted                        | boolean                  | NO          | 
+ manufacturing_metaltype                            | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_size                                 | id                                | bigint                   | NO          | 
+ manufacturing_size                                 | size                              | character varying        | NO          | 
+ manufacturing_size                                 | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_size                                 | is_active                         | boolean                  | NO          | 
+ manufacturing_size                                 | is_deleted                        | boolean                  | NO          | 
+ manufacturing_size                                 | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_stonedetails                         | id                                | bigint                   | NO          | 
+ manufacturing_stonedetails                         | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_stonedetails                         | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_stonedetails                         | is_deleted                        | boolean                  | NO          | 
+ manufacturing_stonedetails                         | is_active                         | boolean                  | NO          | 
+ manufacturing_stonedetails                         | cw_qty                            | integer                  | NO          | 
+ manufacturing_stonedetails                         | qty                               | numeric                  | NO          | 
+ manufacturing_stonedetails                         | product_id                        | bigint                   | NO          | 
+ manufacturing_stonedetails                         | stone_type_id                     | bigint                   | NO          | 
+ manufacturing_stonedetails                         | unit_id                           | bigint                   | NO          | 
+ manufacturing_stonetype                            | id                                | bigint                   | NO          | 
+ manufacturing_stonetype                            | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_stonetype                            | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_stonetype                            | is_deleted                        | boolean                  | NO          | 
+ manufacturing_stonetype                            | is_active                         | boolean                  | NO          | 
+ manufacturing_stonetype                            | stone_name                        | character varying        | NO          | 
+ manufacturing_stoneunit                            | id                                | bigint                   | NO          | 
+ manufacturing_stoneunit                            | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_stoneunit                            | updated_at                        | timestamp with time zone | NO          | 
+ manufacturing_stoneunit                            | is_deleted                        | boolean                  | NO          | 
+ manufacturing_stoneunit                            | is_active                         | boolean                  | NO          | 
+ manufacturing_stoneunit                            | unit_name                         | character varying        | NO          | 
+ manufacturing_style                                | id                                | bigint                   | NO          | 
+ manufacturing_style                                | style_name                        | character varying        | NO          | 
+ manufacturing_style                                | created_at                        | timestamp with time zone | NO          | 
+ manufacturing_style                                | is_active                         | boolean                  | NO          | 
+ manufacturing_style                                | is_deleted                        | boolean                  | NO          | 
+ manufacturing_style                                | updated_at                        | timestamp with time zone | NO          | 
+ order_management_order                             | id                                | bigint                   | NO          | 
+ order_management_order                             | created_at                        | timestamp with time zone | NO          | 
+ order_management_order                             | updated_at                        | timestamp with time zone | NO          | 
+ order_management_order                             | is_deleted                        | boolean                  | NO          | 
+ order_management_order                             | is_active                         | boolean                  | NO          | 
+ order_management_order                             | tab_order_no                      | character varying        | YES         | 
+ order_management_order                             | cart_id                           | integer                  | YES         | 
+ order_management_order                             | created_by_id                     | bigint                   | YES         | 
+ order_management_order                             | customer_id                       | bigint                   | NO          | 
+ order_management_order                             | updated_by_id                     | bigint                   | YES         | 
+ order_management_order                             | user_id                           | bigint                   | YES         | 
+ order_management_order                             | user_preference_id                | bigint                   | YES         | 
+ order_management_order                             | cart_object_id                    | bigint                   | YES         | 
+ order_management_order                             | approved_by_id                    | bigint                   | YES         | 
+ order_management_order                             | requested_by_id                   | bigint                   | YES         | 
+ order_management_order                             | status                            | character varying        | NO          | 
+ order_management_order                             | hallmarked                        | boolean                  | NO          | 
+ order_management_orderline                         | id                                | bigint                   | NO          | 
+ order_management_orderline                         | created_at                        | timestamp with time zone | NO          | 
+ order_management_orderline                         | updated_at                        | timestamp with time zone | NO          | 
+ order_management_orderline                         | is_deleted                        | boolean                  | NO          | 
+ order_management_orderline                         | is_active                         | boolean                  | NO          | 
+ order_management_orderline                         | tej_order_id                      | character varying        | YES         | 
+ order_management_orderline                         | iios_order_id                     | character varying        | YES         | 
+ order_management_orderline                         | branch_id                         | character varying        | YES         | 
+ order_management_orderline                         | bill_code                         | character varying        | YES         | 
+ order_management_orderline                         | delivery_date                     | timestamp with time zone | YES         | 
+ order_management_orderline                         | cust_line_no                      | character varying        | YES         | 
+ order_management_orderline                         | cl_bar_code                       | character varying        | YES         | 
+ order_management_orderline                         | cust_store_id                     | character varying        | YES         | 
+ order_management_orderline                         | cust_item_id                      | character varying        | YES         | 
+ order_management_orderline                         | cust_sku_no                       | character varying        | YES         | 
+ order_management_orderline                         | order_classification              | character varying        | YES         | 
+ order_management_orderline                         | cart_variant_id                   | integer                  | NO          | 
+ order_management_orderline                         | created_by_id                     | bigint                   | YES         | 
+ order_management_orderline                         | project_warehouse_id              | bigint                   | YES         | 
+ order_management_orderline                         | updated_by_id                     | bigint                   | YES         | 
+ order_management_orderline                         | order_split_id                    | bigint                   | NO          | 
+ order_management_orderline                         | order_payload                     | jsonb                    | NO          | 
+ order_management_orderline                         | total_quantity                    | integer                  | YES         | 
+ order_management_orderline                         | total_weight                      | numeric                  | YES         | 
+ order_management_orderline                         | product_id                        | integer                  | NO          | 
+ order_management_orderline                         | cart_variant_object_id            | bigint                   | NO          | 
+ order_management_orderline                         | product_object_id                 | bigint                   | NO          | 
+ order_management_orderline                         | mc_percentage                     | numeric                  | YES         | 
+ order_management_orderline                         | custom_product_id                 | bigint                   | YES         | 
+ order_management_orderline                         | tej_product_id                    | bigint                   | YES         | 
+ order_management_ordersplit                        | id                                | bigint                   | NO          | 
+ order_management_ordersplit                        | created_at                        | timestamp with time zone | NO          | 
+ order_management_ordersplit                        | updated_at                        | timestamp with time zone | NO          | 
+ order_management_ordersplit                        | is_deleted                        | boolean                  | NO          | 
+ order_management_ordersplit                        | is_active                         | boolean                  | NO          | 
+ order_management_ordersplit                        | tej_order_id                      | character varying        | YES         | 
+ order_management_ordersplit                        | erp_order_id                      | character varying        | YES         | 
+ order_management_ordersplit                        | environment                       | character varying        | YES         | 
+ order_management_ordersplit                        | status                            | boolean                  | NO          | 
+ order_management_ordersplit                        | status_message                    | character varying        | YES         | 
+ order_management_ordersplit                        | payload                           | jsonb                    | NO          | 
+ order_management_ordersplit                        | tej_response                      | jsonb                    | NO          | 
+ order_management_ordersplit                        | total_weight                      | numeric                  | YES         | 
+ order_management_ordersplit                        | total_quantity                    | integer                  | YES         | 
+ order_management_ordersplit                        | carat_id                          | bigint                   | YES         | 
+ order_management_ordersplit                        | color_id                          | bigint                   | YES         | 
+ order_management_ordersplit                        | created_by_id                     | bigint                   | YES         | 
+ order_management_ordersplit                        | order_id                          | bigint                   | YES         | 
+ order_management_ordersplit                        | updated_by_id                     | bigint                   | YES         | 
+ order_management_ordersplit                        | action                            | character varying        | YES         | 
+ order_management_ordersplit                        | delivered                         | smallint                 | YES         | 
+ order_management_ordersplit                        | pending                           | smallint                 | YES         | 
+ order_management_ordersplit                        | wip                               | smallint                 | YES         | 
+ order_management_ordersplit                        | order_status                      | character varying        | YES         | 
+ order_management_ordersplitbyproject               | id                                | bigint                   | NO          | 
+ order_management_ordersplitbyproject               | created_at                        | timestamp with time zone | NO          | 
+ order_management_ordersplitbyproject               | updated_at                        | timestamp with time zone | NO          | 
+ order_management_ordersplitbyproject               | is_deleted                        | boolean                  | NO          | 
+ order_management_ordersplitbyproject               | is_active                         | boolean                  | NO          | 
+ order_management_ordersplitbyproject               | created_by_id                     | bigint                   | YES         | 
+ order_management_ordersplitbyproject               | updated_by_id                     | bigint                   | YES         | 
+ order_management_ordersplitbyproject               | display_name                      | character varying        | YES         | 
+ order_management_ordersplitbyproject_project       | id                                | bigint                   | NO          | 
+ order_management_ordersplitbyproject_project       | ordersplitbyproject_id            | bigint                   | NO          | 
+ order_management_ordersplitbyproject_project       | project_id                        | bigint                   | NO          | 
+ order_management_reorderhistory                    | id                                | bigint                   | NO          | 
+ order_management_reorderhistory                    | created_at                        | timestamp with time zone | NO          | 
+ order_management_reorderhistory                    | updated_at                        | timestamp with time zone | NO          | 
+ order_management_reorderhistory                    | is_deleted                        | boolean                  | NO          | 
+ order_management_reorderhistory                    | is_active                         | boolean                  | NO          | 
+ order_management_reorderhistory                    | products_ids                      | jsonb                    | YES         | 
+ order_management_reorderhistory                    | created_by_id                     | bigint                   | YES         | 
+ order_management_reorderhistory                    | customer_id                       | bigint                   | NO          | 
+ order_management_reorderhistory                    | order_id                          | bigint                   | YES         | 
+ order_management_reorderhistory                    | order_line_id                     | bigint                   | YES         | 
+ order_management_reorderhistory                    | updated_by_id                     | bigint                   | YES         | 
+ order_management_reorderhistory                    | user_id                           | bigint                   | YES         | 
+ order_management_reorderhistory                    | user_preference_id                | bigint                   | YES         | 
+ order_management_reorderhistory                    | order_split_id                    | bigint                   | YES         | 
+ order_management_reorderhistory                    | status                            | character varying        | YES         | 
+ order_management_reorderhistory                    | cart_variant_object_id            | bigint                   | YES         | 
+ order_management_reorderhistory                    | new_cart_variant_id               | integer                  | YES         | 
+ order_management_reordertrack                      | id                                | bigint                   | NO          | 
+ order_management_reordertrack                      | created_at                        | timestamp with time zone | NO          | 
+ order_management_reordertrack                      | updated_at                        | timestamp with time zone | NO          | 
+ order_management_reordertrack                      | is_deleted                        | boolean                  | NO          | 
+ order_management_reordertrack                      | is_active                         | boolean                  | NO          | 
+ order_management_reordertrack                      | product_object_id                 | bigint                   | NO          | 
+ order_management_reordertrack                      | created_by_id                     | bigint                   | YES         | 
+ order_management_reordertrack                      | customer_id                       | bigint                   | NO          | 
+ order_management_reordertrack                      | order_id                          | bigint                   | YES         | 
+ order_management_reordertrack                      | order_line_id                     | bigint                   | YES         | 
+ order_management_reordertrack                      | order_split_id                    | bigint                   | YES         | 
+ order_management_reordertrack                      | product_id                        | integer                  | NO          | 
+ order_management_reordertrack                      | updated_by_id                     | bigint                   | YES         | 
+ order_management_reordertrack                      | user_id                           | bigint                   | YES         | 
+ order_management_reordertrack                      | user_preference_id                | bigint                   | YES         | 
+ products_fastmovingzone                            | id                                | bigint                   | NO          | 
+ products_fastmovingzone                            | created_at                        | timestamp with time zone | NO          | 
+ products_fastmovingzone                            | updated_at                        | timestamp with time zone | NO          | 
+ products_fastmovingzone                            | fast_moving_zone_id               | bigint                   | NO          | 
+ products_fastmovingzone                            | product_id                        | bigint                   | NO          | 
+ products_populardesignzone                         | id                                | bigint                   | NO          | 
+ products_populardesignzone                         | created_at                        | timestamp with time zone | NO          | 
+ products_populardesignzone                         | updated_at                        | timestamp with time zone | NO          | 
+ products_populardesignzone                         | popular_design_zone_id            | bigint                   | NO          | 
+ products_populardesignzone                         | product_id                        | bigint                   | NO          | 
+ products_product                                   | id                                | bigint                   | NO          | 
+ products_product                                   | product_id                        | character varying        | NO          | 
+ products_product                                   | name                              | character varying        | NO          | 
+ products_product                                   | diamond_weight                    | numeric                  | YES         | 
+ products_product                                   | diamond_quantity                  | integer                  | YES         | 
+ products_product                                   | weight                            | numeric                  | NO          | 
+ products_product                                   | gold_weight                       | numeric                  | NO          | 
+ products_product                                   | net_weight                        | numeric                  | YES         | 
+ products_product                                   | width                             | numeric                  | YES         | 
+ products_product                                   | height                            | numeric                  | YES         | 
+ products_product                                   | stone_color                       | character varying        | NO          | 
+ products_product                                   | making_percent                    | numeric                  | YES         | 
+ products_product                                   | other_rate                        | numeric                  | YES         | 
+ products_product                                   | ej_keyword                        | character varying        | NO          | 
+ products_product                                   | banner_tags                       | text                     | NO          | 
+ products_product                                   | spl_category_tags                 | text                     | NO          | 
+ products_product                                   | exhibition_tags                   | text                     | NO          | 
+ products_product                                   | qty                               | integer                  | YES         | 
+ products_product                                   | cw_qty                            | integer                  | YES         | 
+ products_product                                   | moq                               | integer                  | YES         | 
+ products_product                                   | sync_update_date                  | timestamp with time zone | YES         | 
+ products_product                                   | design_create_date                | date                     | YES         | 
+ products_product                                   | design_update_date                | date                     | YES         | 
+ products_product                                   | base_product_id                   | bigint                   | YES         | 
+ products_product                                   | category_id                       | bigint                   | NO          | 
+ products_product                                   | collection_id                     | bigint                   | YES         | 
+ products_product                                   | diamond_quality_id                | bigint                   | YES         | 
+ products_product                                   | gender_id                         | bigint                   | YES         | 
+ products_product                                   | hallmark_id                       | bigint                   | NO          | 
+ products_product                                   | manufacturing_id                  | bigint                   | YES         | 
+ products_product                                   | metal_type_id                     | bigint                   | NO          | 
+ products_product                                   | project_id                        | bigint                   | NO          | 
+ products_product                                   | sub_category_id                   | bigint                   | NO          | 
+ products_product                                   | sub_collection_id                 | bigint                   | YES         | 
+ products_product                                   | unit_id                           | bigint                   | NO          | 
+ products_product                                   | created_at                        | timestamp with time zone | NO          | 
+ products_product                                   | updated_at                        | timestamp with time zone | NO          | 
+ products_product                                   | is_active                         | boolean                  | NO          | 
+ products_product                                   | is_deleted                        | boolean                  | NO          | 
+ products_product                                   | image_key                         | character varying        | NO          | 
+ products_product                                   | default_variant_id                | bigint                   | YES         | 
+ products_product                                   | finishing                         | character varying        | YES         | 
+ products_product                                   | created_date                      | timestamp with time zone | YES         | 
+ products_product                                   | updated_date                      | timestamp with time zone | YES         | 
+ products_productsurvey                             | id                                | bigint                   | NO          | 
+ products_productsurvey                             | created_at                        | timestamp with time zone | NO          | 
+ products_productsurvey                             | updated_at                        | timestamp with time zone | NO          | 
+ products_productsurvey                             | is_deleted                        | boolean                  | NO          | 
+ products_productsurvey                             | is_active                         | boolean                  | NO          | 
+ products_productsurvey                             | rating                            | smallint                 | NO          | 
+ products_productsurvey                             | feedback                          | text                     | NO          | 
+ products_productsurvey                             | created_by_id                     | bigint                   | YES         | 
+ products_productsurvey                             | product_id                        | bigint                   | NO          | 
+ products_productsurvey                             | updated_by_id                     | bigint                   | YES         | 
+ products_productsurvey                             | user_id                           | bigint                   | YES         | 
+ products_productvariant                            | id                                | bigint                   | NO          | 
+ products_productvariant                            | weight                            | numeric                  | NO          | 
+ products_productvariant                            | rec_id                            | character varying        | YES         | 
+ products_productvariant                            | update_date                       | timestamp with time zone | YES         | 
+ products_productvariant                            | product_id                        | bigint                   | NO          | 
+ products_productvariant                            | created_at                        | timestamp with time zone | NO          | 
+ products_productvariant                            | is_active                         | boolean                  | NO          | 
+ products_productvariant                            | is_deleted                        | boolean                  | NO          | 
+ products_productvariant                            | updated_at                        | timestamp with time zone | NO          | 
+ products_productvariant                            | variant_id                        | bigint                   | YES         | 
+ products_variant                                   | id                                | bigint                   | NO          | 
+ products_variant                                   | created_at                        | timestamp with time zone | NO          | 
+ products_variant                                   | updated_at                        | timestamp with time zone | NO          | 
+ products_variant                                   | carat_id                          | bigint                   | NO          | 
+ products_variant                                   | color_id                          | bigint                   | YES         | 
+ products_variant                                   | size_id                           | bigint                   | YES         | 
+ products_variant                                   | style_id                          | bigint                   | YES         | 
+ projects_project                                   | id                                | bigint                   | NO          | 
+ projects_project                                   | created_at                        | timestamp with time zone | NO          | 
+ projects_project                                   | updated_at                        | timestamp with time zone | NO          | 
+ projects_project                                   | is_deleted                        | boolean                  | NO          | 
+ projects_project                                   | is_active                         | boolean                  | NO          | 
+ projects_project                                   | project_name                      | character varying        | NO          | 
+ projects_project                                   | description                       | text                     | NO          | 
+ projects_project                                   | layout                            | boolean                  | NO          | 
+ projects_project_metal_type                        | id                                | bigint                   | NO          | 
+ projects_project_metal_type                        | project_id                        | bigint                   | NO          | 
+ projects_project_metal_type                        | metaltype_id                      | bigint                   | NO          | 
+ projects_unit                                      | id                                | bigint                   | NO          | 
+ projects_unit                                      | created_at                        | timestamp with time zone | NO          | 
+ projects_unit                                      | updated_at                        | timestamp with time zone | NO          | 
+ projects_unit                                      | is_deleted                        | boolean                  | NO          | 
+ projects_unit                                      | is_active                         | boolean                  | NO          | 
+ projects_unit                                      | unit_name                         | character varying        | NO          | 
+ projects_zone                                      | id                                | bigint                   | NO          | 
+ projects_zone                                      | created_at                        | timestamp with time zone | NO          | 
+ projects_zone                                      | updated_at                        | timestamp with time zone | NO          | 
+ projects_zone                                      | is_deleted                        | boolean                  | NO          | 
+ projects_zone                                      | is_active                         | boolean                  | NO          | 
+ projects_zone                                      | zone_name                         | character varying        | NO          | 
+ users_user                                         | id                                | bigint                   | NO          | 
+ users_user                                         | password                          | character varying        | NO          | 
+ users_user                                         | last_login                        | timestamp with time zone | YES         | 
+ users_user                                         | is_superuser                      | boolean                  | NO          | 
+ users_user                                         | username                          | character varying        | NO          | 
+ users_user                                         | first_name                        | character varying        | NO          | 
+ users_user                                         | last_name                         | character varying        | NO          | 
+ users_user                                         | is_staff                          | boolean                  | NO          | 
+ users_user                                         | is_active                         | boolean                  | NO          | 
+ users_user                                         | date_joined                       | timestamp with time zone | NO          | 
+ users_user                                         | created_at                        | timestamp with time zone | NO          | 
+ users_user                                         | updated_at                        | timestamp with time zone | NO          | 
+ users_user                                         | is_deleted                        | boolean                  | NO          | 
+ users_user                                         | email                             | character varying        | YES         | 
+ users_user                                         | mobile_number                     | character varying        | YES         | 
+ users_user                                         | is_verified                       | boolean                  | NO          | 
+ users_user                                         | user_type                         | smallint                 | YES         | 
+ users_user                                         | created_by_id                     | bigint                   | YES         | 
+ users_user                                         | customer_id                       | bigint                   | YES         | 
+ users_user                                         | updated_by_id                     | bigint                   | YES         | 
+ users_user                                         | enable_display_charges            | boolean                  | NO          | 
+ users_user                                         | making_charge_password            | character varying        | YES         | 
+ users_user                                         | dealer_change_password            | character varying        | YES         | 
+ users_useraddon                                    | id                                | bigint                   | NO          | 
+ users_useraddon                                    | all_zone                          | boolean                  | NO          | 
+ users_useraddon                                    | is_password_changed               | boolean                  | NO          | 
+ users_useraddon                                    | uuid                              | character varying        | YES         | 
+ users_useraddon                                    | internal_user_name                | character varying        | YES         | 
+ users_useraddon                                    | user_id                           | bigint                   | YES         | 
+ users_useraddon                                    | profile_image                     | character varying        | YES         | 
+ users_useraddon                                    | executive_id                      | character varying        | YES         | 
+ users_useraddon                                    | orderable_count                   | integer                  | NO          | 
+ users_useraddon                                    | can_share                         | boolean                  | NO          | 
+ users_useraddon                                    | share_permissions                 | ARRAY                    | NO          | 
+ users_useraddon                                    | security_pass                     | boolean                  | NO          | 
+ users_useraddon                                    | zone_id                           | bigint                   | YES         | 
+ users_useraddon_operational_zones                  | id                                | bigint                   | NO          | 
+ users_useraddon_operational_zones                  | useraddon_id                      | bigint                   | NO          | 
+ users_useraddon_operational_zones                  | zone_id                           | bigint                   | NO          | 
+ users_userpreference                               | id                                | bigint                   | NO          | 
+ users_userpreference                               | created_at                        | timestamp with time zone | NO          | 
+ users_userpreference                               | updated_at                        | timestamp with time zone | NO          | 
+ users_userpreference                               | is_deleted                        | boolean                  | NO          | 
+ users_userpreference                               | is_active                         | boolean                  | NO          | 
+ users_userpreference                               | name                              | character varying        | YES         | 
+ users_userpreference                               | email                             | character varying        | YES         | 
+ users_userpreference                               | gold_type                         | character varying        | YES         | 
+ users_userpreference                               | custom_order                      | boolean                  | NO          | 
+ users_userpreference                               | sub_dealer_name                   | character varying        | YES         | 
+ users_userpreference                               | single_lot_delivery               | boolean                  | NO          | 
+ users_userpreference                               | jewellery_type                    | ARRAY                    | NO          | 
+ users_userpreference                               | notes                             | text                     | YES         | 
+ users_userpreference                               | default                           | boolean                  | NO          | 
+ users_userpreference                               | created_by_id                     | bigint                   | YES         | 
+ users_userpreference                               | customer_id                       | bigint                   | YES         | 
+ users_userpreference                               | updated_by_id                     | bigint                   | YES         | 
+ users_userpreference                               | user_id                           | bigint                   | YES         | 
+ users_userpreference                               | is_common                         | boolean                  | NO          | 
+ users_userpreferencedefault                        | id                                | bigint                   | NO          | 
+ users_userpreferencedefault                        | created_at                        | timestamp with time zone | NO          | 
+ users_userpreferencedefault                        | updated_at                        | timestamp with time zone | NO          | 
+ users_userpreferencedefault                        | is_deleted                        | boolean                  | NO          | 
+ users_userpreferencedefault                        | is_active                         | boolean                  | NO          | 
+ users_userpreferencedefault                        | created_by_id                     | bigint                   | YES         | 
+ users_userpreferencedefault                        | updated_by_id                     | bigint                   | YES         | 
+ users_userpreferencedefault                        | user_id                           | bigint                   | NO          | 
+ users_userpreferencedefault                        | user_preference_id                | bigint                   | NO          | 
+ users_userpreferencedefault                        | customer_id                       | bigint                   | YES         | 
+
+
+Table with foriegnkeys
+
+                      fk_table                      |           fk_column           |              referenced_table               | referenced_column 
+----------------------------------------------------+-------------------------------+---------------------------------------------+-------------------
+ cart_cart                                          | customer_id                   | customers_customer                          | id
+ cart_cart                                          | user_preference_id            | users_userpreference                        | id
+ cart_cart                                          | updated_by_id                 | users_user                                  | id
+ cart_cart                                          | reordered_from_order_id       | order_management_order                      | id
+ cart_cart                                          | created_by_id                 | users_user                                  | id
+ cart_cart                                          | user_id                       | users_user                                  | id
+ cart_cart                                          | reordered_from_order_split_id | order_management_ordersplit                 | id
+ cart_cartproductvariants                           | cart_id                       | cart_cart                                   | id
+ cart_cartproductvariants                           | order_variant_from_order_id   | order_management_orderline                  | id
+ cart_cartproductvariants                           | product_variant_id            | products_productvariant                     | id
+ cart_cartproductvariants                           | updated_by_id                 | users_user                                  | id
+ cart_cartproductvariants                           | created_by_id                 | users_user                                  | id
+ cart_cartvariantaudioannotation                    | cart_variant_id               | cart_cartproductvariants                    | id
+ cart_cartvariantaudioannotation                    | created_by_id                 | users_user                                  | id
+ cart_cartvariantaudioannotation                    | updated_by_id                 | users_user                                  | id
+ cart_cartvariantaudioannotation                    | uploaded_by_id                | users_user                                  | id
+ catalog_category_project                           | category_id                   | catalog_category                            | id
+ catalog_category_project                           | project_id                    | projects_project                            | id
+ catalog_collection_category                        | category_id                   | catalog_category                            | id
+ catalog_collection_category                        | collection_id                 | catalog_collection                          | id
+ catalog_collection_metal_type                      | collection_id                 | catalog_collection                          | id
+ catalog_collection_metal_type                      | metaltype_id                  | manufacturing_metaltype                     | id
+ catalog_collection_project                         | collection_id                 | catalog_collection                          | id
+ catalog_collection_project                         | project_id                    | projects_project                            | id
+ catalog_collection_sub_category                    | subcategory_id                | catalog_subcategory                         | id
+ catalog_collection_sub_category                    | collection_id                 | catalog_collection                          | id
+ catalog_subcategory_category                       | category_id                   | catalog_category                            | id
+ catalog_subcategory_category                       | subcategory_id                | catalog_subcategory                         | id
+ catalog_subcollection_collection                   | collection_id                 | catalog_collection                          | id
+ catalog_subcollection_collection                   | subcollection_id              | catalog_subcollection                       | id
+ custom_order_customordercart                       | user_id                       | users_user                                  | id
+ custom_order_customordercart                       | created_by_id                 | users_user                                  | id
+ custom_order_customordercart                       | customer_id                   | customers_customer                          | id
+ custom_order_customordercart                       | reordered_from_order_id       | order_management_order                      | id
+ custom_order_customordercart                       | reordered_from_order_split_id | order_management_ordersplit                 | id
+ custom_order_customordercart                       | updated_by_id                 | users_user                                  | id
+ custom_order_customordercart                       | user_preference_id            | users_userpreference                        | id
+ custom_order_customordercartproductvariants        | order_variant_from_order_id   | order_management_orderline                  | id
+ custom_order_customordercartproductvariants        | product_variant_id            | custom_order_customordervariant             | id
+ custom_order_customordercartproductvariants        | cart_id                       | custom_order_customordercart                | id
+ custom_order_customordercartproductvariants        | updated_by_id                 | users_user                                  | id
+ custom_order_customordercartproductvariants        | created_by_id                 | users_user                                  | id
+ custom_order_customordercartvariantaudioannotation | cart_variant_id               | custom_order_customordercartproductvariants | id
+ custom_order_customordercartvariantaudioannotation | updated_by_id                 | users_user                                  | id
+ custom_order_customordercartvariantaudioannotation | uploaded_by_id                | users_user                                  | id
+ custom_order_customordercartvariantaudioannotation | created_by_id                 | users_user                                  | id
+ custom_order_customordervariant                    | product_id                    | custom_order_customproduct                  | id
+ custom_order_customordervariant                    | created_by_id                 | users_user                                  | id
+ custom_order_customordervariant                    | variant_id                    | products_variant                            | id
+ custom_order_customordervariant                    | updated_by_id                 | users_user                                  | id
+ custom_order_customproduct                         | updated_by_id                 | users_user                                  | id
+ custom_order_customproduct                         | base_product_id               | custom_order_customproduct                  | id
+ custom_order_customproduct                         | category_id                   | catalog_category                            | id
+ custom_order_customproduct                         | collection_id                 | catalog_collection                          | id
+ custom_order_customproduct                         | created_by_id                 | users_user                                  | id
+ custom_order_customproduct                         | customer_id                   | customers_customer                          | id
+ custom_order_customproduct                         | diamond_quality_id            | manufacturing_diamondquality                | id
+ custom_order_customproduct                         | gender_id                     | catalog_gender                              | id
+ custom_order_customproduct                         | hallmark_id                   | manufacturing_hallmark                      | id
+ custom_order_customproduct                         | manufacturing_id              | manufacturing_manufacturing                 | id
+ custom_order_customproduct                         | metal_type_id                 | manufacturing_metaltype                     | id
+ custom_order_customproduct                         | project_id                    | projects_project                            | id
+ custom_order_customproduct                         | sub_category_id               | catalog_subcategory                         | id
+ custom_order_customproduct                         | sub_collection_id             | catalog_subcollection                       | id
+ custom_order_customproduct                         | user_preference_id            | users_userpreference                        | id
+ custom_order_customproduct                         | unit_id                       | projects_unit                               | id
+ custom_order_customproduct_fast_moving_zone        | customproduct_id              | custom_order_customproduct                  | id
+ custom_order_customproduct_fast_moving_zone        | zone_id                       | projects_zone                               | id
+ custom_order_customproduct_popular_design_zone     | customproduct_id              | custom_order_customproduct                  | id
+ custom_order_customproduct_popular_design_zone     | zone_id                       | projects_zone                               | id
+ customers_customer                                 | dealer_id                     | customers_customer                          | id
+ customers_customer                                 | created_by_id                 | users_user                                  | id
+ customers_customer                                 | updated_by_id                 | users_user                                  | id
+ customers_customer                                 | zone_id                       | projects_zone                               | id
+ customers_productcustomer                          | customer_id                   | customers_customer                          | id
+ customers_productcustomer                          | product_id                    | products_product                            | id
+ customers_productmakingchargepercustomer           | product_variant_id            | products_productvariant                     | id
+ customers_productmakingchargepercustomer           | updated_by_id                 | users_user                                  | id
+ customers_productmakingchargepercustomer           | created_by_id                 | users_user                                  | id
+ customers_productmakingchargepercustomer           | customer_id                   | customers_customer                          | id
+ customers_productmakingchargepercustomer           | product_id                    | products_product                            | id
+ diamond_stone_details                              | unit_id                       | manufacturing_diamondunit                   | id
+ diamond_stone_details                              | product_id                    | products_product                            | id
+ diamond_stone_details                              | color_id                      | manufacturing_diamondcolor                  | id
+ diamond_stone_details                              | sieve_code_id                 | manufacturing_diamondsievecode              | id
+ diamond_stone_details                              | size_id                       | manufacturing_diamondsize                   | id
+ diamond_stone_details                              | style_id                      | manufacturing_diamondstyle                  | id
+ invoice_invoice                                    | updated_by_id                 | users_user                                  | id
+ invoice_invoice                                    | customer_id                   | customers_customer                          | id
+ invoice_invoice                                    | created_by_id                 | users_user                                  | id
+ invoice_invoiceproducts                            | created_by_id                 | users_user                                  | id
+ invoice_invoiceproducts                            | content_type_id               | django_content_type                         | id
+ invoice_invoiceproducts                            | invoice_id                    | invoice_invoice                             | id
+ invoice_invoiceproducts                            | updated_by_id                 | users_user                                  | id
+ invoice_inwardmovement                             | created_by_id                 | users_user                                  | id
+ invoice_inwardmovement                             | updated_by_id                 | users_user                                  | id
+ invoice_inwardmovement                             | invoice_product_id            | invoice_invoiceproducts                     | id
+ invoice_outwardmovement                            | updated_by_id                 | users_user                                  | id
+ invoice_outwardmovement                            | invoice_product_id            | invoice_invoiceproducts                     | id
+ invoice_outwardmovement                            | created_by_id                 | users_user                                  | id
+ manufacturing_carat_metal_type                     | carat_id                      | manufacturing_carat                         | id
+ manufacturing_carat_metal_type                     | metaltype_id                  | manufacturing_metaltype                     | id
+ manufacturing_color_metal_type                     | metaltype_id                  | manufacturing_metaltype                     | id
+ manufacturing_color_metal_type                     | color_id                      | manufacturing_color                         | id
+ manufacturing_makingcharge                         | created_by_id                 | users_user                                  | id
+ manufacturing_makingcharge                         | color_id                      | manufacturing_color                         | id
+ manufacturing_makingcharge                         | config_id                     | manufacturing_carat                         | id
+ manufacturing_makingcharge                         | metal_type_id                 | manufacturing_metaltype                     | id
+ manufacturing_makingcharge                         | mfg_code_id                   | manufacturing_manufacturing                 | id
+ manufacturing_makingcharge                         | size_id                       | manufacturing_size                          | id
+ manufacturing_makingcharge                         | style_id                      | manufacturing_style                         | id
+ manufacturing_makingcharge                         | updated_by_id                 | users_user                                  | id
+ manufacturing_stonedetails                         | product_id                    | products_product                            | id
+ manufacturing_stonedetails                         | unit_id                       | manufacturing_stoneunit                     | id
+ manufacturing_stonedetails                         | stone_type_id                 | manufacturing_stonetype                     | id
+ order_management_order                             | cart_id                       | django_content_type                         | id
+ order_management_order                             | customer_id                   | customers_customer                          | id
+ order_management_order                             | requested_by_id               | customers_customer                          | id
+ order_management_order                             | user_preference_id            | users_userpreference                        | id
+ order_management_order                             | created_by_id                 | users_user                                  | id
+ order_management_order                             | updated_by_id                 | users_user                                  | id
+ order_management_order                             | user_id                       | users_user                                  | id
+ order_management_order                             | approved_by_id                | customers_customer                          | id
+ order_management_orderline                         | created_by_id                 | users_user                                  | id
+ order_management_orderline                         | project_warehouse_id          | products_projectwarehouse                   | id
+ order_management_orderline                         | updated_by_id                 | users_user                                  | id
+ order_management_orderline                         | cart_variant_id               | django_content_type                         | id
+ order_management_orderline                         | custom_product_id             | custom_order_customproduct                  | id
+ order_management_orderline                         | tej_product_id                | products_product                            | id
+ order_management_orderline                         | product_id                    | django_content_type                         | id
+ order_management_orderline                         | order_split_id                | order_management_ordersplit                 | id
+ order_management_ordersplit                        | order_id                      | order_management_order                      | id
+ order_management_ordersplit                        | color_id                      | manufacturing_color                         | id
+ order_management_ordersplit                        | updated_by_id                 | users_user                                  | id
+ order_management_ordersplit                        | carat_id                      | manufacturing_carat                         | id
+ order_management_ordersplit                        | created_by_id                 | users_user                                  | id
+ order_management_ordersplitbyproject               | created_by_id                 | users_user                                  | id
+ order_management_ordersplitbyproject               | updated_by_id                 | users_user                                  | id
+ order_management_ordersplitbyproject_project       | project_id                    | projects_project                            | id
+ order_management_ordersplitbyproject_project       | ordersplitbyproject_id        | order_management_ordersplitbyproject        | id
+ order_management_reorderhistory                    | user_id                       | users_user                                  | id
+ order_management_reorderhistory                    | user_preference_id            | users_userpreference                        | id
+ order_management_reorderhistory                    | order_split_id                | order_management_ordersplit                 | id
+ order_management_reorderhistory                    | order_line_id                 | order_management_orderline                  | id
+ order_management_reorderhistory                    | order_id                      | order_management_order                      | id
+ order_management_reorderhistory                    | new_cart_variant_id           | django_content_type                         | id
+ order_management_reorderhistory                    | customer_id                   | customers_customer                          | id
+ order_management_reorderhistory                    | created_by_id                 | users_user                                  | id
+ order_management_reorderhistory                    | updated_by_id                 | users_user                                  | id
+ order_management_reordertrack                      | product_id                    | django_content_type                         | id
+ order_management_reordertrack                      | created_by_id                 | users_user                                  | id
+ order_management_reordertrack                      | customer_id                   | customers_customer                          | id
+ order_management_reordertrack                      | order_id                      | order_management_order                      | id
+ order_management_reordertrack                      | order_line_id                 | order_management_orderline                  | id
+ order_management_reordertrack                      | order_split_id                | order_management_ordersplit                 | id
+ order_management_reordertrack                      | updated_by_id                 | users_user                                  | id
+ order_management_reordertrack                      | user_id                       | users_user                                  | id
+ order_management_reordertrack                      | user_preference_id            | users_userpreference                        | id
+ products_fastmovingzone                            | product_id                    | products_product                            | id
+ products_fastmovingzone                            | fast_moving_zone_id           | projects_zone                               | id
+ products_populardesignzone                         | popular_design_zone_id        | projects_zone                               | id
+ products_populardesignzone                         | product_id                    | products_product                            | id
+ products_product                                   | sub_category_id               | catalog_subcategory                         | id
+ products_product                                   | project_id                    | projects_project                            | id
+ products_product                                   | metal_type_id                 | manufacturing_metaltype                     | id
+ products_product                                   | manufacturing_id              | manufacturing_manufacturing                 | id
+ products_product                                   | hallmark_id                   | manufacturing_hallmark                      | id
+ products_product                                   | gender_id                     | catalog_gender                              | id
+ products_product                                   | diamond_quality_id            | manufacturing_diamondquality                | id
+ products_product                                   | base_product_id               | products_product                            | id
+ products_product                                   | collection_id                 | catalog_collection                          | id
+ products_product                                   | unit_id                       | projects_unit                               | id
+ products_product                                   | sub_collection_id             | catalog_subcollection                       | id
+ products_product                                   | default_variant_id            | products_productvariant                     | id
+ products_product                                   | category_id                   | catalog_category                            | id
+ products_productsurvey                             | updated_by_id                 | users_user                                  | id
+ products_productsurvey                             | created_by_id                 | users_user                                  | id
+ products_productsurvey                             | product_id                    | products_product                            | id
+ products_productsurvey                             | user_id                       | users_user                                  | id
+ products_productvariant                            | product_id                    | products_product                            | id
+ products_productvariant                            | variant_id                    | products_variant                            | id
+ products_variant                                   | carat_id                      | manufacturing_carat                         | id
+ products_variant                                   | color_id                      | manufacturing_color                         | id
+ products_variant                                   | size_id                       | manufacturing_size                          | id
+ products_variant                                   | style_id                      | manufacturing_style                         | id
+ projects_project_metal_type                        | project_id                    | projects_project                            | id
+ projects_project_metal_type                        | metaltype_id                  | manufacturing_metaltype                     | id
+ users_user                                         | updated_by_id                 | users_user                                  | id
+ users_user                                         | created_by_id                 | users_user                                  | id
+ users_user                                         | customer_id                   | customers_customer                          | id
+ users_useraddon                                    | zone_id                       | projects_zone                               | id
+ users_useraddon                                    | user_id                       | users_user                                  | id
+ users_useraddon_operational_zones                  | zone_id                       | projects_zone                               | id
+ users_useraddon_operational_zones                  | useraddon_id                  | users_useraddon                             | id
+ users_userpreference                               | updated_by_id                 | users_user                                  | id
+ users_userpreference                               | created_by_id                 | users_user                                  | id
+ users_userpreference                               | customer_id                   | customers_customer                          | id
+ users_userpreference                               | user_id                       | users_user                                  | id
+ users_userpreferencedefault                        | updated_by_id                 | users_user                                  | id
+ users_userpreferencedefault                        | user_id                       | users_user                                  | id
+ users_userpreferencedefault                        | user_preference_id            | users_userpreference                        | id
+ users_userpreferencedefault                        | customer_id                   | customers_customer                          | id
+ users_userpreferencedefault                        | created_by_id                 | users_user                                  | id

@@ -1,0 +1,151 @@
+{
+  "MetalType": {
+    "queries": [
+      {
+        "user_query": "List all metal types",
+        "orm_query": "MetalType.objects.all()"
+      },
+      {
+        "user_query": "Give me all active metal type",
+        "orm_query": "MetalType.objects.filter(is_active=True)"
+      }
+    ]
+  },
+  "Project": {
+    "queries": [
+      {
+        "user_query": "List all projects",
+        "orm_query": "Project.objects.filter(is_active=True)"
+      }
+    ]
+  }
+  "Category": {
+    "queries": [
+      {
+        "user_query": "List all categories",
+        "orm_query": "Category.objects.filter(is_active=True)"
+      }
+    ]
+  }
+  "SubCategory": {
+    "queries": [
+      {
+        "user_query": "List all subcategories",
+        "orm_query": "SubCategory.objects.filter(is_active=True)"
+      }
+    ]
+  }
+  "Collection": {
+    "queries": [
+      {
+        "user_query": "List all collection",
+        "orm_query": "Collection.objects.filter(is_active=True)"
+      }
+    ]
+  }
+  "Product": {
+    "queries": [
+      {
+        "user_query": "List all products",
+        "orm_query": "Product.objects.filter(is_active=True)"
+      }
+      {
+        "user_query": "Show products with diamond_weight > 1 carat",
+        "orm_query": "Product.objects.filter(diamond_weight__gt=1)"
+      }
+    ]
+  }
+  "Products by Category": {
+    "queries": [
+      {
+        "user_query": "List all products in the chain category",
+        "orm_query": "Product.objects.filter(category__category_name__iexact='chain')"
+      },
+      {
+        "user_query": "Show products in the necklace category in silver",
+        "orm_query": "Product.objects.filter(category__category_name__iexact='CHAIN NECKLACE', metal_type__metal_name="2")"
+      },
+      {
+        "user_query": "Show active products by category name 'Bracelet'",
+        "orm_query": "Product.objects.filter(category__category_name='Bracelet')"
+      }
+    ]
+  }
+  "Products by MetalType and Project": {
+    "queries": [
+        {
+            "user_query": "Show me silver avana products",
+            "orm_query" : "Product.objects.filter(project__project_name__iexact='AVANA', metal_type__metal_name="2")"
+        }
+        {
+            "user_query": "List the gold fusion products",
+            "orm_query" : "Product.objects.filter(project__project_name__iexact='FUSION', metal_type__metal_name="1")"
+        }
+    ]
+  }
+  "Products by Collection and SubCollection and MetalType": {
+    "queries": [
+        {
+            "user_query": "Show me silver corporate collection ",
+            "orm_query": "Product.objects.filter(collection__collection_name__iexact='CORPORATE', metal_type__metal_name="2")",
+        }
+        {
+            "user_query": "List out products of 4 pcs set in silver type",
+            "orm_query": "Product.objects.filter(sub_collection__sub_collection_name__iexact='4 pcs set', metal_type__metal_name="2")",
+        }
+        {
+            "user_query": "List products belonging to a chain and aabhaa",
+            "orm_query": "Product.objects.filter(collection__collection_name="CHAIN", sub_collection__sub_collection_name="AABHAA")",
+        }
+    ]
+  }
+  "products by Category and Gender": {
+    "queries": [
+        {
+            "user_query": "List out chain necklace for women",
+            "orm_query": "Product.objects.filter(category__category_name__iexact='chain necklace', gender__gender_name__iexact='Ladies')",
+        }
+    ]
+  }
+  "Products by Project and Color": {
+    "queries": [
+        {
+            "user_query": "Give me avana products with rose gold color",
+            "orm_query": "Product.objects.filter(project__project_name__iexact="AVANA", product_related_variant__variant__color__name__iexact="12")",
+        }
+    ]
+  }
+  "Count of Products per Category,SubCategory": {
+    "queries": [
+        {
+            "user_query": "How many products do we have in each category",
+            "orm_query": "Product.objects.values("category__category_name").annotate(product_count=Count("id"))",
+        }
+        {
+            "user_query": "List the count of the each SubCategory",
+            "orm_query": "Product.objects.values("sub_category__sub_category_name").annotate(product_count=Count("id"))",
+        }
+    ]
+  }
+  "Products by Category, SubCategory": {
+    "queries": [
+        {
+            "user_query": "What are the subcategories are present in chain category",
+            "orm_query": "Product.objects.filter(category__category_name__iexact='chain').values('sub_category__sub_category_name')
+        }
+        {
+            "user_query": "Show me few products of hip chain in chain category",
+            "orm_query": "Product.objects.filter(category__category_name__iexact='chain', sub_category__sub_category_name__iexact='hip chain')
+        }
+    ]
+  }
+  "Products by Project,Category,Diamond Quality and Diamond Weight": {
+    "queries": [
+        {
+            "user_query": "Give a idol ring product with diamond quality vvs1 and diamond weight should not be more than 0.05 carat and gold weight should be less than 10. If gold ring not found get it from platinum",
+            "orm_query": "Product.objects.filter(category__category_name__iexact='chain', diamond_quality__name__iexact='vvs1', diamond_weight__lte=0.05, gold_weight__lt=10, metal_type__metal_name__iexact='gold').first() or Product.objects.filter(category__category_name__iexact='ring', diamond_quality__name__iexact='vvs1', diamond_weight__lte=0.05, gold_weight__lt=10, metal_type__metal_name__iexact='platinum').first()"
+        }
+    ]
+  }
+  
+}

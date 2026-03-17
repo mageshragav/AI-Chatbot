@@ -1,0 +1,521 @@
+
+# 📚 Bookstore API
+
+A modern async REST API built with **FastAPI**, **Tortoise ORM**, **PostgreSQL**, and **Pydantic v2** — now with **`pyenv` + `uv`** for reproducible, high-speed development.
+
+> ⚡ Powered by `uv` • 🐍 Managed by `pyenv` • 🐘 Backed by PostgreSQL • 🚀 Ready for production
+---
+
+## 🗂️ Project Structure
+
+```bash
+my-fastapi-project/
+├── apps/
+│   ├── __init__.py
+│   ├── users/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   └── routes.py
+│   ├── books/
+│   │   ├── __init__.py
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   └── routes.py
+│   └── orders/
+│       ├── __init__.py
+│       ├── models.py
+│       ├── schemas.py
+│       └── routes.py
+├── core/
+│   ├── __init__.py
+│   ├── config.py        # Shared config (DB, settings)
+│   └── database.py      # Tortoise/FastAPI integration
+├── main.py              # FastAPI app
+├── pyproject.toml
+├── .env
+├── .python-version
+├── aerich.ini
+└── migrations/          # ← Single migration folder for all apps
+```
+---
+
+## 🧰 Tech Stack
+
+- **Core**: FastAPI, Tortoise ORM, Pydantic v2
+- **Database**: PostgreSQL + Aerich (migrations)
+- **Tooling**: `pyenv` (Python version), `uv` (deps + venv)
+- **Standards**: Async/await, OpenAPI, 12-factor app
+
+---
+
+## 📦 Requirements
+
+- [`pyenv`](https://github.com/pyenv/pyenv) – Manage Python versions
+- [`uv`](https://docs.astral.sh/uv/) – Ultra-fast Python package installer & resolver
+- PostgreSQL 12+
+
+> 💡 `uv` replaces `pip`, `venv`, and even parts of `poetry` — it’s **10–100x faster**.
+
+---
+
+## 🚀 Quick Start
+
+### 1. Install `pyenv` and `uv`
+
+#### macOS (with Homebrew):
+```bash
+# pyenv
+brew install pyenv
+
+# uv
+brew install uv
+```
+
+#### Linux / WSL:
+```bash
+# pyenv
+curl https://pyenv.run | bash
+
+# uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+> 🔄 **Restart your shell** or run `source ~/.bashrc` / `source ~/.zshrc`.
+
+---
+
+### 2. Set Python Version
+
+This project uses **Python 3.11** (recommended).
+
+```bash
+# Install Python 3.11 via pyenv (if not present)
+pyenv install 3.11.9
+
+# Set local Python version for this project
+pyenv local 3.11.9
+```
+
+✅ This creates a `.python-version` file (committed to Git).
+
+---
+
+### 3. Create Virtual Environment & Install Dependencies
+
+```bash
+# Create venv using project name and Python version
+uv venv
+
+# Install dependencies in editable mode (fast dev setup)
+uv pip install -e .
+```
+
+> 💡 `uv` automatically uses the `pyenv`-selected Python version.
+
+---
+
+### 4. Configure Environment
+
+Copy the example env file:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` with your PostgreSQL credentials:
+
+```env
+# .env
+DATABASE_URL=postgres://user:password@localhost:5432/bookstore
+```
+
+> 🔐 Never commit `.env`! It’s in `.gitignore`.
+
+---
+
+### 5. Initialize Database & Migrations
+
+```bash
+# Create DB (PostgreSQL CLI)
+createdb bookstore
+
+# Initialize Aerich
+uv run aerich init -t app.config:TORTOISE_ORM
+uv run aerich init-db
+
+# Generate & apply initial migration
+uv run aerich migrate --name initial
+uv run aerich upgrade
+```
+
+> ✅ Use `uv run <command>` to execute tools inside the virtual environment.
+
+---
+
+## ▶️ Run the App
+
+```bash
+uv run uvicorn app.main:app --reload
+```
+
+- **Swagger UI**: http://127.0.0.1:8000/docs  
+- **ReDoc**: http://127.0.0.1:8000/redoc
+
+---
+
+## 🧪 Development Workflow
+
+| Task | Command |
+|------|--------|
+| Install new dep | `uv add requests` |
+| Remove dep | `uv remove requests` |
+| Sync deps (from `pyproject.toml`) | `uv sync` |
+| Run tests | `uv run pytest` |
+| Format code | `uv run ruff format` |
+| Lint | `uv run ruff check .` |
+
+> 💡 This project uses **`pyproject.toml`** (not `requirements.txt`) for modern Python packaging.
+
+---
+
+## 📄 Project Files
+
+### `pyproject.toml` (Dependencies & Metadata)
+```toml
+[project]
+name = "bookstore-api"
+version = "0.1.0"
+description = "FastAPI + Tortoise ORM Bookstore API"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "tortoise-orm[asyncpg]>=0.20.0",
+    "aerich>=0.8.0",
+    "python-dotenv>=1.0.0",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0.0",
+    "httpx>=0.27.0",
+    "ruff>=0.4.0",
+]
+```
+
+> ✅ `uv` reads this file instead of `requirements.txt`.
+
+### `.env.example`
+```env
+DATABASE_URL=postgres://user:password@localhost:5432/bookstore
+```
+
+### `.python-version`
+```
+3.11.9
+```
+
+> Committed to ensure team-wide Python consistency.
+
+---
+
+## 🐳 Docker Support (Optional)
+
+Not included by default, but easy to add. Let us know if you need a `Dockerfile` optimized for `uv`.
+
+---
+
+## 📌 Best Practices
+
+- ✅ **Always** use `pyenv local <version>` in new projects
+- ✅ Use `uv` for all dependency/venv operations
+- ✅ Commit `.python-version` and `pyproject.toml`
+- ❌ Never commit `.env` or `__pycache__`
+- 🔁 Prefer `uv run` over activating venv manually
+
+Absolutely! Here’s a **step-by-step guide** to create a **multi-app FastAPI project with Tortoise ORM**, structured like Django — including **logical per-app `migrations/` folders** and a **single real Aerich migration system**.
+
+We’ll build two apps: `users` and `books`.
+
+---
+
+## 🧰 Prerequisites
+
+- `pyenv` installed
+- `uv` installed (`pip install uv`)
+- PostgreSQL running
+
+---
+
+## 📁 Step 1: Create Project Root
+
+```bash
+mkdir bookstore-multiapp
+cd bookstore-multiapp
+```
+
+---
+
+## 🐍 Step 2: Set Python Version with `pyenv`
+
+```bash
+pyenv install 3.11.9      # if not already installed
+pyenv local 3.11.9        # creates .python-version
+```
+
+✅ Now your project uses Python 3.11.9.
+
+---
+
+## 📦 Step 3: Initialize Project with `uv`
+
+```bash
+# Create pyproject.toml
+uv init --lib
+
+# Edit pyproject.toml
+```
+
+Replace contents of `pyproject.toml` with:
+
+```toml
+[project]
+name = "bookstore-multiapp"
+version = "0.1.0"
+description = "Multi-app FastAPI with Tortoise ORM"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "tortoise-orm[asyncpg]>=0.20.0",
+    "aerich>=0.8.0",
+    "python-dotenv>=1.0.0",
+]
+
+[tool.uv]
+dev-dependencies = []
+```
+
+Install:
+```bash
+uv venv
+uv pip install -e .
+```
+
+---
+
+## 🔧 Step 5: Create Core Configuration (`core/config.py`)
+
+```python
+# core/config.py
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+TORTOISE_ORM = {
+    "connections": {"default": DATABASE_URL},
+    "apps": {
+        "models": {
+            "models": [
+                "apps.users.models",
+                "apps.books.models",
+                "aerich.models",  # Required for Aerich
+            ],
+            "default_connection": "default",
+        }
+    },
+}
+```
+
+---
+
+## 📄 Step 6: Add `.env` and `.env.example`
+
+```env
+# .env.example
+DATABASE_URL=postgres://user:password@localhost:5432/bookstore_multi
+```
+
+```bash
+cp .env.example .env
+# → Edit .env with your real credentials
+```
+
+Add to `.gitignore`:
+```gitignore
+.env
+__pycache__/
+*.pyc
+.venv/
+.venv*/
+```
+
+---
+
+## 👤 Step 7: Create `users` App
+
+### `apps/users/models.py`
+```python
+from tortoise.models import Model
+from tortoise import fields
+
+class User(Model):
+    id = fields.IntField(pk=True)
+    email = fields.CharField(max_length=255, unique=True)
+    name = fields.CharField(max_length=100)
+
+    class Meta:
+        table = "users"
+```
+
+### `apps/users/schemas.py`
+```python
+from pydantic import BaseModel, EmailStr
+
+class UserBase(BaseModel):
+    name: str
+    email: EmailStr
+
+class UserCreate(UserBase):
+    pass
+
+class UserResponse(UserBase):
+    id: int
+
+    class Config:
+        from_attributes = True
+```
+
+### `apps/users/routes.py`
+```python
+from fastapi import APIRouter, HTTPException
+from tortoise.exceptions import DoesNotExist, IntegrityError
+from .models import User
+from .schemas import UserCreate, UserResponse
+
+router = APIRouter(prefix="/users", tags=["Users"])
+
+@router.post("/", response_model=UserResponse)
+async def create_user(user: UserCreate):
+    try:
+        db_user = await User.create(**user.model_dump())
+        return db_user
+    except IntegrityError:
+        raise HTTPException(400, "Email already registered")
+
+@router.get("/{user_id}", response_model=UserResponse)
+async def get_user(user_id: int):
+    try:
+        return await User.get(id=user_id)
+    except DoesNotExist:
+        raise HTTPException(404, "User not found")
+```
+
+---
+
+## 🚀 Step 9: Create Main App (`main.py`)
+
+```python
+# main.py
+from fastapi import FastAPI
+from core.config import TORTOISE_ORM
+from tortoise.contrib.fastapi import register_tortoise
+from apps.users.routes import router as user_router
+from apps.books.routes import router as book_router
+
+app = FastAPI(title="Bookstore Multi-App API")
+
+app.include_router(user_router)
+app.include_router(book_router)
+
+register_tortoise(
+    app,
+    config=TORTOISE_ORM,
+    generate_schemas=False,  # ← Always False with Aerich
+)
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to Multi-App Bookstore API!"}
+```
+
+---
+
+## 🔄 Step 10: Set Up Aerich
+
+### Create `aerich.ini`
+
+```ini
+[aerich]
+tortoise_orm = core.config:TORTOISE_ORM
+location = ./migrations
+```
+
+### Initialize Migrations
+
+```bash
+# Create DB (if not exists)
+createdb bookstore_multi
+
+# Initialize Aerich
+uv run aerich init -t core.config:TORTOISE_ORM
+uv run aerich init-db
+```
+
+✅ This creates the top-level `migrations/` folder.
+
+---
+
+## 🧬 Step 11: Generate & Apply First Migration
+
+```bash
+uv run aerich migrate --name initial_create_users_and_books
+uv run aerich upgrade
+```
+
+You’ll see:
+```
+migrations/
+└── models/
+    └── initial_create_users_and_books_20251127123456.py
+```
+
+> ✅ This file contains **both** `users` and `books` tables.
+
+---
+
+## ▶️ Step 12: Run the App
+
+```bash
+uv run uvicorn main:app --reload
+```
+
+Visit:
+- http://127.0.0.1:8000/docs
+- Try creating a user and a book!
+
+---
+
+## ➕ Step 13: Add a New Field (Example)
+
+Suppose you want to add `genre` to `Book`.
+
+### 1. Update `apps/books/models.py`
+```python
+class Book(Model):
+    id = fields.IntField(pk=True)
+    title = fields.CharField(max_length=255)
+    author = fields.CharField(max_length=100)
+    published_year = fields.IntField()
+    genre = fields.CharField(max_length=50, default="Fiction")  # ← NEW
+```
+
+### 2. Create Migration
+```bash
+uv run aerich migrate --name books_add_genre
+uv run aerich upgrade
+```
